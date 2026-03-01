@@ -34,7 +34,8 @@ const MatchPopup = ({ matches, onClose }) => {
             ? `We've found ${matches.length} possible match${
                 matches.length > 1 ? "es" : ""
               } for your report.`
-            : "No possible matches found for this item."}
+          : "No possible matches found for this item."}
+
         </p>
 
         {/* Buttons */}

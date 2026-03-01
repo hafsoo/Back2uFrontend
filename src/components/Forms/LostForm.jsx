@@ -73,6 +73,7 @@ const LostForm = () => {
         description: "",
         images: [],
       });
+      
       setTimeout(() => {
         setShowPopup(true);
       }, 400);
