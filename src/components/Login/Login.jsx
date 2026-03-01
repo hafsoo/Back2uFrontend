@@ -117,7 +117,7 @@ const Login = () => {
                   Remember Me
                 </label>
               </div>
-              <div className="text-sm">
+             {/*<div className="text-sm">
                 <a
                   href=".forgot-password"
                   className="font-medium text-blue-600 hover:text-blue-500"
@@ -125,6 +125,7 @@ const Login = () => {
                   Forgot your Password?
                 </a>
               </div>
+              */} 
             </div>
 
             <div>
