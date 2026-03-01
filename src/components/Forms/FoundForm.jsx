@@ -1,0 +1,420 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { createFoundItem, clearMessage } from "../../redux/actions/foundItem"; // Redux action
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import MatchPopup from "../Matching/MatchPopup";
+import {
+  FileText,
+  Braces,
+  Tag,
+  Cpu,
+  Save,
+  Search,
+  BarChart3,
+  CheckCircle,
+  Check,
+  ArrowRight,
+} from "lucide-react";
+
+const FoundForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {
+    success,
+    error,
+    possibleMatches = [],
+  } = useSelector((state) => state.foundItem);
+  const [showPopup, setShowPopup] = useState(false); //
+  const [formData, setFormData] = useState({
+    itemName: "",
+    category: "",
+    dateFound: "",
+    location: "",
+    customLocation: "",
+    description: "",
+    images: [],
+  });
+
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    { label: "Input", icon: FileText },
+    { label: "Normalize", icon: Braces },
+    { label: "Tags", icon: Tag },
+    { label: "Embed", icon: Cpu },
+    { label: "Save", icon: Save },
+    { label: "Match", icon: Search },
+    { label: "Score", icon: BarChart3 },
+    { label: "Result", icon: CheckCircle },
+  ];
+
+  const handleClosePopup = () => {
+    setShowPopup(false); // hide popup
+    dispatch(clearMessage()); // optional: clear matches from Redux
+    navigate("/");
+  };
+
+  // Toast notifications
+  useEffect(() => {
+    if (error) toast.error(error);
+    if (success) {
+      toast.success("Found item report submitted successfully!");
+      // navigate("/");
+      //window.location.reload();
+      setFormData({
+        itemName: "",
+        category: "",
+        dateFound: "",
+        location: "",
+        customLocation: "",
+        description: "",
+        images: [],
+      });
+
+      setTimeout(() => {
+        setShowPopup(true);
+      }, 400);
+    }
+  }, [error, success]);
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+
+    if (files) {
+      const fileArray = Array.from(files);
+      fileArray.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (reader.readyState === 2) {
+            setFormData((prev) => ({
+              ...prev,
+              images: [...prev.images, reader.result],
+            }));
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    //const { itemName, dateFound, location, images } = formData;
+    const {
+      itemName,
+      dateFound,
+      location,
+      category,
+      description,
+      customLocation,
+    } = formData;
+
+    if (
+      !itemName ||
+      !dateFound ||
+      !location ||
+      !category ||
+      !description ||
+      !customLocation
+    ) {
+      return toast.error("Please fill all required fields.");
+    }
+    setIsProcessing(true);
+    setCurrentStep(0);
+
+    // Animate pipeline steps
+    for (let i = 0; i < steps.length; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      setCurrentStep(i + 1);
+    }
+    dispatch(createFoundItem(formData));
+    setIsProcessing(false);
+
+    // Small delay before popup
+    setTimeout(() => {
+      setShowPopup(true);
+    }, 600);
+  };
+
+  const ProcessingPipeline = ({ currentStep, isProcessing }) => {
+    return (
+      <div className="mt-12 w-full bg-gray-50 border border-gray-200 rounded-2xl p-3">
+        {/* Heading */}
+        <h4 className="text-sm font-semibold text-gray-700 tracking-wide mb-8">
+          Processing Pipeline
+        </h4>
+
+        {/* Icons Row */}
+        <div className="flex items-center justify-between w-full">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            const isCompleted = index < currentStep;
+            const isActive = index === currentStep && isProcessing;
+
+            return (
+              <div key={index} className="flex items-center">
+                {/* Step */}
+                <div className="flex flex-col items-center">
+                  {/* Circle Icon */}
+                  <div
+                    className={`h-14 w-14 flex items-center justify-center rounded-full border-2 transition-all duration-500
+                    ${
+                      isCompleted
+                        ? "bg-green-500 border-green-500 text-white shadow-md shadow-green-500/30"
+                        : isActive
+                          ? "bg-blue-100 border-blue-500 text-blue-600 animate-pulse"
+                          : "bg-white border-gray-300 text-gray-400"
+                    }
+                  `}
+                  >
+                    {isCompleted ? <Check size={22} /> : <Icon size={22} />}
+                  </div>
+
+                  {/* Label Below Icon */}
+                  <span
+                    className={`mt-3 text-xs font-medium transition-all duration-300
+                    ${
+                      isCompleted
+                        ? "text-green-600"
+                        : isActive
+                          ? "text-blue-600"
+                          : "text-gray-500"
+                    }
+                  `}
+                  >
+                    {step.label}
+                  </span>
+                </div>
+
+                {/* Arrow Between Icons */}
+                {index !== steps.length - 1 && (
+                  <ArrowRight
+                    size={18}
+                    className={`mx-4 transition-all duration-500
+                    ${index < currentStep ? "text-green-500" : "text-gray-300"}
+                  `}
+                  />
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Processing Text */}
+        {isProcessing && (
+          <div className="mt-8 text-center text-blue-600 font-medium animate-pulse">
+            ⚙ Processing — {steps[currentStep]?.label}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div
+      className="bg-white shadow-xl rounded-3xl p-10 w-full max-w-4xl mx-auto"
+      //className="bg-white shadow-md rounded-2xl p-8 w-full max-w-lg"
+    >
+      {/* Info message at the top */}
+      <div className="flex items-start bg-yellow-100 border-l-4 border-yellow-400 text-yellow-800 px-4 py-3 rounded-md mb-4">
+        <span className="mr-2 text-xl">⚠️</span>
+        <p className="text-sm">
+          Please provide correct and valid details in all fields. Upload clear
+          images of the Found item for better matching results.
+        </p>
+      </div>
+      <h2 className="text-2xl font-semibold text-center mb-6 text-green-700">
+        Report Found Item
+      </h2>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Item Name */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Item Name
+          </label>
+          <input
+            type="text"
+            name="itemName"
+            value={formData.itemName}
+            onChange={handleChange}
+            placeholder="Enter item name e.g. Black IPhone with cracked screen"
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            required
+          />
+        </div>
+
+        {/* Category */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Category
+          </label>
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            required
+          >
+            <option value="" required>
+              Select Category
+            </option>
+            <option value="Electronics">Electronics</option>
+            <option value="Documents">Documents</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Books">Books</option>
+            <option value="Bags">Bags</option>
+            <option value="Wallet / Purse">Wallet / Purse</option>
+            <option value="ID Card">ID Card</option>
+            <option value="Keys">Keys</option>
+            <option value="Stationery">Stationery</option>
+            <option value="Sports Equipment">Sports Equipment</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        {/* Date Found */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Date Found
+          </label>
+          <input
+            type="date"
+            name="dateFound"
+            value={formData.dateFound}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            required
+          />
+        </div>
+
+        {/* Location */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Location
+          </label>
+          <select
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400 mb-2"
+            required
+          >
+            <option value="">Select Location</option>
+            <option value="Library">Library</option>
+            <option value="Cafeteria">Cafeteria</option>
+            <option value="Main Building">Main Building</option>
+            <option value="IT Department">IT Department</option>
+            <option value="Science Block">Science Block</option>
+            <option value="Sports Complex">Sports Complex</option>
+            <option value="Parking Area">Parking Area</option>
+            <option value="Hostel A">Hostel A</option>
+            <option value="Hostel B">Hostel B</option>
+            <option value="Admin Office">Admin Office</option>
+            <option value="Auditorium">Auditorium</option>
+            <option value="Playground">Playground</option>
+            <option value="Bus Stop">Bus Stop</option>
+            <option value="Garden">Garden</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <input
+            type="text"
+            name="customLocation"
+            value={formData.customLocation || ""}
+            onChange={handleChange}
+            placeholder="Or type a specific place (e.g., Library 2nd Floor)"
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            required
+          />
+        </div>
+
+        {/* Description */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Description
+          </label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            placeholder="Describe the item-color,brand,distinguishing features"
+            rows="3"
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            required
+          />
+        </div>
+
+        {/* Image Upload */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Upload Images
+          </label>
+          <input
+            type="file"
+            name="images"
+            accept="image/*"
+            onChange={handleChange}
+            multiple
+            className="hidden"
+            id="upload"
+          />
+          <div className="flex flex-wrap items-center mt-2">
+            <label htmlFor="upload">
+              <AiOutlinePlusCircle
+                size={30}
+                color="#555"
+                className="cursor-pointer"
+              />
+            </label>
+            {formData.images.map((img, idx) => (
+              <img
+                src={img}
+                key={idx}
+                alt={`found-item-${idx}`}
+                className="h-[120px] w-[120px] object-cover m-2 border rounded"
+              />
+            ))}
+          </div>
+        </div>
+        <div className="hidden md:block">
+          <ProcessingPipeline
+            currentStep={currentStep}
+            isProcessing={isProcessing}
+          />
+        </div>
+        {/* Submit Button */}
+        <div className="text-center">
+          \
+          <button
+            type="submit"
+            disabled={isProcessing}
+            className={`w-full py-3 rounded-xl font-semibold text-white transition-all duration-300
+    ${
+      isProcessing
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:shadow-lg hover:scale-[1.01]"
+    }
+  `}
+          >
+            {isProcessing ? "Processing..." : "🚀 Submit & Find Matches"}
+          </button>
+        </div>
+      </form>
+
+      {/* Matching Popup */}
+      {showPopup && (
+        <MatchPopup matches={possibleMatches} onClose={handleClosePopup} />
+      )}
+    </div>
+  );
+};
+
+export default FoundForm;
