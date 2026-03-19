@@ -10,5 +10,5 @@
 
 
 //deploy on render
- export const backend_url="https://back2ubackend-xbx6.onrender.com"
-export const server="https://back2ubackend-xbx6.onrender.com/api/v2";
+ export const backend_url="https://back2u-backend.vercel.app/"
+export const server="https://back2u-backend.vercel.app/api/v2";
