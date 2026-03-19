@@ -20,7 +20,7 @@ const ClaimModal = ({ item, itemType, onClose }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post(
+      await axios.post(
         `${server}/claim/submit-claim`,
         {
           itemId: item._id,

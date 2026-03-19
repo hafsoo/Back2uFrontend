@@ -50,7 +50,9 @@ const UserInbox = () => {
         setOpen(true);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversations, selectedChatUserId]);
+  
 
   
   useEffect(() => {

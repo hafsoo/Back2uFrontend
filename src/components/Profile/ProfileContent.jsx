@@ -30,6 +30,7 @@ const ProfileContent = ({ active }) => {
   const [email, setEmail] = useState(user && user.email);
   const [phoneNumber, setPhoneNumber] = useState(user && user.phoneNumber);
   const [password, setPassword] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [avatar, setAvatar] = useState(null);
   const dispatch = useDispatch();
 

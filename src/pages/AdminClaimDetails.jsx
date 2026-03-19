@@ -19,6 +19,7 @@ const AdminClaimDetails = () => {
 
   useEffect(() => {
     fetchClaim();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ================= START ADMIN CHAT =================
@@ -45,7 +46,7 @@ const handleAdminChat = async () => {
 
  const updateStatus = async (status) => {
   try {
-    const { data } = await axios.put(
+     await axios.put(
       `${server}/claim/admin-update/${id}`,
       { status },
       { withCredentials: true }

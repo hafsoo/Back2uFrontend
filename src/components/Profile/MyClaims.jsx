@@ -15,7 +15,7 @@ const TABS = [
 
 const MyClaims = () => {
   const dispatch = useDispatch();
-  const { claims = [], loading, error } = useSelector((state) => state.claims || {});
+  const { claims = [], loading } = useSelector((state) => state.claims || {});
   const [activeTab, setActiveTab] = useState("all");
 
   useEffect(() => {

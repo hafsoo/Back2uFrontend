@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "../../styles/styles";
+//import styles from "../../styles/styles";
 import { navItems } from "../../static/data";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
