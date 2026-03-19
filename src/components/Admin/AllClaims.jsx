@@ -27,7 +27,7 @@ const AllClaims = () => {
     fetchClaims();
   }, []);
 
-  const updateStatus = async (id, status) => {
+  /*const updateStatus = async (id, status) => {
     await axios.put(
       `${server}/claim/admin-update/${id}`,
       { status },
@@ -35,7 +35,7 @@ const AllClaims = () => {
     );
     fetchClaims();
   };
-
+*/
   return (
     <div className="w-full p-6 bg-gray-100 min-h-screen">
       <h2 className="text-2xl font-semibold mb-6">All Claims</h2>
