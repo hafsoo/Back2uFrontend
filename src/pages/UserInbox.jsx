@@ -9,8 +9,8 @@ import { AiOutlineSend, AiOutlineArrowLeft } from "react-icons/ai";
 import { TfiGallery } from "react-icons/tfi";
 import { useLocation } from "react-router-dom";
 
-const ENDPOINT = "http://localhost:4000";
-
+const ENDPOINT = "https://back2usocket.onrender.com/";//deploy on render
+//const ENDPOINT = "http://localhost:4000";
 const UserInbox = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
