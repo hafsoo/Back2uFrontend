@@ -25,6 +25,7 @@ const LostForm = () => {
     success,
     error,
     possibleMatches = [],
+    isLoading,
   } = useSelector((state) => state.lostItem);
 
   const [showPopup, setShowPopup] = useState(false); 
@@ -60,7 +61,7 @@ const LostForm = () => {
   // Handle toast notifications
   useEffect(() => {
     if (error) toast.error(error);
-    if (success) {
+    if (success && !isLoading) {
       toast.success("Lost item report submitted successfully!");
       //navigate("/");
       //window.location.reload();
@@ -74,11 +75,11 @@ const LostForm = () => {
         images: [],
       });
       
-      setTimeout(() => {
+      //setTimeout(() => {
         setShowPopup(true);
-      }, 400);
+      //}, 400);
     }
-  }, [error, success]);
+  }, [error, success,isLoading]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
