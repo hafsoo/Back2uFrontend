@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  AiOutlineCamera,
-  AiOutlineDelete,
-} from "react-icons/ai";
+import { AiOutlineCamera, AiOutlineDelete } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { server } from "../../server";
 import styles from "../../styles/styles";
@@ -43,7 +40,7 @@ const ProfileContent = ({ active }) => {
       toast.success(successMessage);
       dispatch({ type: "clearMessages" });
     }
-  }, [error, successMessage,dispatch]);
+  }, [error, successMessage, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +59,7 @@ const ProfileContent = ({ active }) => {
             { avatar: reader.result },
             {
               withCredentials: true,
-            }
+            },
           )
           .then((response) => {
             dispatch(loadUser());
@@ -166,10 +163,9 @@ const ProfileContent = ({ active }) => {
       {/* My Reports */}
       {active === 2 && (
         <div>
-          <MyReports/>
+          <MyReports />
         </div>
       )}
-
 
       {/* Change Password */}
       {active === 6 && (
@@ -185,13 +181,11 @@ const ProfileContent = ({ active }) => {
         </div>
       )}
 
-      {active === 9 && <MyClaims/>}
-      {active === 10 && <IncomingClaims/>}
-
+      {active === 9 && <MyClaims />}
+      {active === 10 && <IncomingClaims />}
     </div>
   );
 };
-
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -205,7 +199,7 @@ const ChangePassword = () => {
       .put(
         `${server}/user/update-user-password`,
         { oldPassword, newPassword, confirmPassword },
-        { withCredentials: true }
+        { withCredentials: true },
       )
       .then((res) => {
         toast.success(res.data.success);
@@ -224,7 +218,6 @@ const ChangePassword = () => {
       </h1>
       <div className="w-full">
         <form
-         
           onSubmit={passwordChangeHandler}
           className="flex flex-col items-center"
         >
@@ -306,8 +299,8 @@ const Address = () => {
           address1,
           address2,
           zipCode,
-          addressType
-        )
+          addressType,
+        ),
       );
       setOpen(false);
       setCountry("");
@@ -327,7 +320,7 @@ const Address = () => {
   return (
     <div className="w-full px-3 sm:px-5">
       {open && (
-        <div  className="fixed inset-0 bg-[#0000004b] flex items-center justify-center px-2" >
+        <div className="fixed inset-0 bg-[#0000004b] flex items-center justify-center px-2">
           <div className="w-[95%] sm:w-[80%] lg:w-[35%] h-[90vh] bg-white rounded shadow relative overflow-y-auto">
             <div className="w-full flex justify-end p-3">
               <RxCross1
@@ -463,29 +456,63 @@ const Address = () => {
           </div>
         </div>
       )}
-      <div 
-      className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-3 sm:gap-0"
-      //className="flex w-full items-center justify-between"
+      <div
+        className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-3 sm:gap-0"
+        //className="flex w-full items-center justify-between"
       >
-        <h1 
-        className="text-lg sm:text-[25px] font-semibold text-[#000000ba]"
-        //className="text-[25px] font-[600] text-[#000000ba] pb-2"
+        <h1
+          className="text-lg sm:text-[25px] font-semibold text-[#000000ba]"
+          //className="text-[25px] font-[600] text-[#000000ba] pb-2"
         >
           My Addresses
         </h1>
-        
+
         <div
-         className={`${styles.button} !rounded-md px-4 py-2 sm:px-6 sm:py-3 w-full sm:w-auto text-center`}
-          //className={`${styles.button} !rounded-md`}
+          className={`${styles.button} !rounded-md px-2 py-2 sm:px-4 sm:py-3 w-full sm:w-auto text-center`}
+          // className={`${styles.button} !rounded-md`}
           onClick={() => setOpen(true)}
         >
-          <span 
-          className="text-white block sm:inline"
-          //className="text-[#fff]"
-          >Add New</span>
+          <span
+            className="text-white block sm:inline"
+            //className="text-[#fff]"
+          >
+            Add New
+          </span>
         </div>
       </div>
       <br />
+      {user &&
+        user.addresses.map((item, index) => (
+          <div
+            key={index}
+            className="w-full bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+          >
+            {/* Address Type */}
+            <div className="font-semibold text-gray-800 dark:text-white">
+              {item.addressType}
+            </div>
+
+            {/* Address Text */}
+            <div className="text-sm text-gray-600 dark:text-gray-300 break-words sm:max-w-[40%]">
+              {item.address1}, {item.address2}
+            </div>
+
+            {/* Phone */}
+            <div className="text-sm text-gray-600 dark:text-gray-300">
+              {user?.phoneNumber}
+            </div>
+
+            {/* Delete Button */}
+            <div className="flex justify-end sm:justify-center">
+              <AiOutlineDelete
+                size={20}
+                className="cursor-pointer text-red-500 hover:text-red-700"
+                onClick={() => handleDelete(item)}
+              />
+            </div>
+          </div>
+        ))}
+      {/*
       {user &&
         user.addresses.map((item, index) => (
           <div
@@ -514,6 +541,7 @@ const Address = () => {
             </div>
           </div>
         ))}
+         */}
 
       {user && user.addresses.length === 0 && (
         <h5 className="text-center pt-8 text-[18px]">

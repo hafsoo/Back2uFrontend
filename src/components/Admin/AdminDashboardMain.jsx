@@ -469,11 +469,18 @@ const AdminDashboardMain = () => {
       </div>
 
       {/* ================= MONTHLY ================= */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5 gap-2">
+      <div 
+      className="flex items-center justify-between mb-6 gap-2"
+      //className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5 gap-2"
+      >
         <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white">
           Monthly Item Reports
         </h3>
-        <TrendingUp size={24} />
+        <div
+         className="flex-shrink-0 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800/30">
+<TrendingUp size={24} className="text-blue-600 dark:text-blue-400" />
+        </div>
+        
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">

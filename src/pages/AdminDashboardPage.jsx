@@ -33,12 +33,12 @@ const AdminDashboardPage = () => {
       <AdminHeader />
       <div className="flex w-full">
         {/* Sidebar Container: Width must match the margin of the main content */}
-        <div className="w-[80px] lg:w-[330px] flex-shrink-0">
+        <div className="w-[80px] lg:w-[330px] flex-shrink-0 bg-white dark:bg-[#0f172a]">
           <AdminSideBar active={1} />
         </div>
         
         {/* Main Content: We use flex-1 to take up remaining space */}
-        <div className="flex-1 transition-all duration-300">
+        <div className="flex-1 transition-all duration-300 overflow-hidden">
           <AdminDashboardMain />
         </div>
       </div>
