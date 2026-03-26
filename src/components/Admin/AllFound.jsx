@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
@@ -77,8 +78,8 @@ const AllFound = () => {
   }));
 
   return (
-    <div className="w-full p-6 bg-gray-100 min-h-screen">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+    <div className="w-full p-6 bg-gray-100  dark:bg-gray-800  min-h-screen">
+      <h2 className="text-2xl  dark:text-white font-semibold text-gray-800 mb-6">
         All Found Reports
       </h2>
 
@@ -108,3 +109,5 @@ const AllFound = () => {
 };
 
 export default AllFound;
+
+

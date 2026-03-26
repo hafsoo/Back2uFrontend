@@ -37,13 +37,13 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat"
+      className="min-h-screen flex flex-col justify-center py-12 px-3 sm:px-6 lg:px-8 bg-cover bg-center bg-no-repeat"
       style={{
        backgroundImage: `url("/images/uni.png")`,
       }}
     >
       <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white bg-opacity-90 p-8 rounded-2xl shadow-lg">
-        <h2 className="text-center text-3xl font-extrabold text-gray-900">
+        <h2 className="text-center text-2xl font-extrabold text-gray-900">
           Welcome to Back2U
         </h2>
 

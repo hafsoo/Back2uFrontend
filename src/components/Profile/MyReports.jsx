@@ -48,9 +48,11 @@ const MyReports = () => {
   const renderTable = (reports, type) => (
     <div className="overflow-x-auto rounded-lg border border-gray-300 shadow-sm">
       <table className="min-w-full text-sm text-left">
-        <thead className="bg-[#6a5fdf] text-[#d0d2d6] uppercase text-xs sm:text-sm">
+        <thead 
+        className="bg-[#6a5fdf] text-[#d0d2d6] uppercase text-xs sm:text-sm"
+        >
           <tr>
-            <th className="py-3 px-2 sm:px-4 border">No</th>
+            <th className="py-3 px-2 sm:px-4 border ">No</th>
             <th className="py-3 px-2 sm:px-4 border">Name</th>
             <th className="py-3 px-2 sm:px-4 border hidden sm:table-cell">Category</th>
             <th className="py-3 px-2 sm:px-4 border">Location</th>
@@ -60,37 +62,41 @@ const MyReports = () => {
         </thead>
         <tbody>
           {reports.map((item, i) => (
-            <tr key={item._id} className="hover:bg-gray-50">
-              <td className="py-2 px-2 sm:px-4 border">{i + 1}</td>
+            <tr 
+            key={item._id} 
+            className="hover:bg-gray-50"
+            >
+             <td className="py-2 px-2 sm:px-4 border">{i + 1}</td>
               <td className="py-2 px-2 sm:px-4 border font-medium text-gray-800">{item.itemName}</td>
               <td className="py-2 px-2 sm:px-4 border hidden sm:table-cell">{item.category || "N/A"}</td>
               <td className="py-2 px-2 sm:px-4 border">{item.location}</td>
               <td className="py-2 px-2 sm:px-4 border hidden sm:table-cell">{item.dateLost || item.dateFound}</td>
               <td className="py-2 px-2 sm:px-4 border">
-                <div className="flex justify-center sm:justify-start gap-2">
+                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
                   <Link
                     to={`/lost-found/${item._id}`}
-                    className="bg-green-500 text-white p-2 rounded hover:bg-green-600 transition"
+                    className="bg-green-500 text-white p-2 rounded hover:bg-green-600 transition w-10 h-10 flex items-center justify-center"
                     title="View"
                   >
                     <FaEye />
                   </Link>
                   <Link
                     to={type === "lost" ? `/lost-report/edit/${item._id}` : `/found-report/edit/${item._id}`}
-                    className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition"
+                    className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition w-10 h-10 flex items-center justify-center"
                     title="Edit"
                   >
                     <FaEdit />
                   </Link>
                   <button
                     onClick={() => handleDelete(item._id, type)}
-                    className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition"
+                    className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition w-10 h-10 flex items-center justify-center"
                     title="Delete"
                   >
                     <FaTrash />
                   </button>
                 </div>
               </td>
+              
             </tr>
           ))}
         </tbody>

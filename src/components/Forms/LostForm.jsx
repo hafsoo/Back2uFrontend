@@ -57,6 +57,7 @@ const LostForm = () => {
     navigate("/");
   };
 
+  
   // Handle toast notifications
   useEffect(() => {
     if (error) toast.error(error);
@@ -74,11 +75,12 @@ const LostForm = () => {
         images: [],
       });
       
-      setTimeout(() => {
+      //setTimeout(() => {
         setShowPopup(true);
-      }, 400);
+      //}, 400);
     }
   }, [error, success]);
+  
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -137,9 +139,9 @@ const LostForm = () => {
     setIsProcessing(false);
 
     // Small delay before popup
-    setTimeout(() => {
-      setShowPopup(true);
-    }, 600);
+    //setTimeout(() => {
+      //setShowPopup(true);
+    //}, 600);
   };
  
 const ProcessingPipeline = ({ currentStep, isProcessing }) => {
@@ -421,7 +423,7 @@ const ProcessingPipeline = ({ currentStep, isProcessing }) => {
 
       {/* Matching Popup */}
       {showPopup && (
-        <MatchPopup matches={possibleMatches} onClose={handleClosePopup} />
+       <MatchPopup matches={possibleMatches} onClose={handleClosePopup} />
       )}
     </div>
   );

@@ -463,15 +463,26 @@ const Address = () => {
           </div>
         </div>
       )}
-      <div className="flex w-full items-center justify-between">
-        <h1 className="text-[25px] font-[600] text-[#000000ba] pb-2">
+      <div 
+      className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-3 sm:gap-0"
+      //className="flex w-full items-center justify-between"
+      >
+        <h1 
+        className="text-lg sm:text-[25px] font-semibold text-[#000000ba]"
+        //className="text-[25px] font-[600] text-[#000000ba] pb-2"
+        >
           My Addresses
         </h1>
+        
         <div
-          className={`${styles.button} !rounded-md`}
+         className={`${styles.button} !rounded-md px-4 py-2 sm:px-6 sm:py-3 w-full sm:w-auto text-center`}
+          //className={`${styles.button} !rounded-md`}
           onClick={() => setOpen(true)}
         >
-          <span className="text-[#fff]">Add New</span>
+          <span 
+          className="text-white block sm:inline"
+          //className="text-[#fff]"
+          >Add New</span>
         </div>
       </div>
       <br />

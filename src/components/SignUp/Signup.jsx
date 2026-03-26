@@ -45,7 +45,7 @@ const Singup = () => {
 
   return (
     <div
-     className="min-h-screen bg-cover bg-center flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative"
+     className="min-h-screen bg-cover bg-center flex flex-col justify-center py-12 px-3 sm:px-6 lg:px-8 relative"
       style={{
         backgroundImage: `url("/images/uni.png")`, // <-- your university image here
       }}
@@ -53,20 +53,21 @@ const Singup = () => {
       {/* dark overlay for readability */}
       <div className="absolute inset-0 bg-black/30"></div>
 
-      <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
+      
+
+      <div 
+      className="relative z-10 mt-8 sm:mx-auto sm:w-full sm:max-w-md "
+      >
+        <div className="bg-white bg-opacity-95 py-8 px-4 shadow-xl sm:rounded-lg sm:px-10 rounded-2xl">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md ">
         <h2 
-        className="mt-6 text-center text-3xl font-extrabold text-white drop-shadow-md"
+        className="mt-6 text-center text-xl font-extrabold text-black drop-shadow-md"
         >
-         Create your Back2U Account
+         Create Your Back2U Account
         </h2>
          
       </div>
-
-      <div 
-      className="relative z-10 mt-8 sm:mx-auto sm:w-full sm:max-w-md"
-      >
-        <div className="bg-white bg-opacity-95 py-8 px-4 shadow-xl sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"

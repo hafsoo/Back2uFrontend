@@ -20,7 +20,8 @@ const MatchPopup = ({ matches, onClose }) => {
         {/* Header */}
         <div className="text-center">
           <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
-            {matches && matches.length > 0
+            { 
+              matches && matches.length > 0
               ? "Possible Matches Found!"
               : "No Matches Found"}
           </h3>
@@ -48,7 +49,8 @@ const MatchPopup = ({ matches, onClose }) => {
             Close
           </button>
 
-          {matches && matches.length > 0 && (
+          {matches && matches.length > 0 
+            && (
             <button
               onClick={() => navigate("/matches", { state: { matches } })}
               className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 active:scale-95 transition-all duration-200"

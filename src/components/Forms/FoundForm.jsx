@@ -74,9 +74,9 @@ const FoundForm = () => {
         images: [],
       });
 
-      setTimeout(() => {
+      //setTimeout(() => {
         setShowPopup(true);
-      }, 400);
+      //}, 400);
     }
   }, [error, success]);
 
@@ -137,9 +137,9 @@ const FoundForm = () => {
     setIsProcessing(false);
 
     // Small delay before popup
-    setTimeout(() => {
-      setShowPopup(true);
-    }, 600);
+    //setTimeout(() => {
+      //setShowPopup(true);
+    //}, 600);
   };
 
   const ProcessingPipeline = ({ currentStep, isProcessing }) => {
