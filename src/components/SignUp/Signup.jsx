@@ -15,43 +15,16 @@ const Singup = () => {
   const [avatar, setAvatar] = useState(null);
 
  
-const handleFileInputChange = (e) => {
-  const file = e.target.files[0];
 
-  const reader = new FileReader();
-
-  reader.onload = () => {
-    const img = new Image();
-    img.src = reader.result;
-
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-
-      // resize image
-      canvas.width = 300;
-      canvas.height = 300;
-
-      ctx.drawImage(img, 0, 0, 300, 300);
-
-      const compressed = canvas.toDataURL("image/jpeg", 0.7);
-
-      setAvatar(compressed);
+  const handleFileInputChange = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setAvatar(reader.result);
+      }
     };
+    reader.readAsDataURL(e.target.files[0]);
   };
-
-  reader.readAsDataURL(file);
-};
- // const handleFileInputChange = (e) => {
-   // const reader = new FileReader();
-
-    //reader.onload = () => {
-      //if (reader.readyState === 2) {
-        //setAvatar(reader.result);
-      //}
-    //};
-    //reader.readAsDataURL(e.target.files[0]);
-  //};
   
  
   const handleSubmit = async (e) => {
