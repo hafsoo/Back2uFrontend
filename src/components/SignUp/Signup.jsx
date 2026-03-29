@@ -25,6 +25,7 @@ const Singup = () => {
 
     reader.readAsDataURL(e.target.files[0]);
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +38,7 @@ const Singup = () => {
         setEmail("");
         setPassword("");
         setAvatar(null);
-        
+
       })
       .catch((error) => {
         toast.error(error.response.data.message);
