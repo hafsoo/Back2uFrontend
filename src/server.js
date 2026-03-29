@@ -5,9 +5,12 @@
 
 
  //this backend url for multer upload folder now in project we you cloudinary
- export const backend_url="http://localhost:8000"
-export const server="http://localhost:8000/api/v2";
+// export const backend_url="http://localhost:8000"
+//export const server="http://localhost:8000/api/v2";
 
+//deploy on vercel
+ export const backend_url="https://back2u-backend-ksiq.vercel.app/"
+export const server="https://back2u-backend-ksiq.vercel.app/api/v2";
 
 
 //deploy on render backend
