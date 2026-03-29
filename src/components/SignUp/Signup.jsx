@@ -14,19 +14,54 @@ const Singup = () => {
   const [visible, setVisible] = useState(false);
   const [avatar, setAvatar] = useState(null);
 
-  const handleFileInputChange = (e) => {
-    const reader = new FileReader();
+  const handleFileInputChange = async (e) => {
+  const file = e.target.files[0];
 
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setAvatar(reader.result);
-      }
-    };
+  if (!file) return;
 
-    reader.readAsDataURL(e.target.files[0]);
-  };
+  const formData = new FormData();
+
+  formData.append("file", file);
+  formData.append("upload_preset", "back2u_upload"); // 👈 your preset
+  formData.append("cloud_name", "dsp1murc7"); // 👈 your cloud name
+
+  try {
+    toast.loading("Uploading image...");
+
+    const res = await axios.post(
+      "https://api.cloudinary.com/v1_1/dsp1murc7/image/upload",
+      formData
+    );
+
+    toast.dismiss();
+
+    console.log("Image URL:", res.data.secure_url);
+
+    // ✅ STORE ONLY URL
+    setAvatar(res.data.secure_url);
+
+    toast.success("Image uploaded");
+
+  } catch (error) {
+    toast.dismiss();
+    console.log(error);
+    toast.error("Upload failed");
+  }
+};
+
+ // const handleFileInputChange = (e) => {
+   // const reader = new FileReader();
+
+    //reader.onload = () => {
+      //if (reader.readyState === 2) {
+        //setAvatar(reader.result);
+      //}
+    //};
+
+    //reader.readAsDataURL(e.target.files[0]);
+  //};
   
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
