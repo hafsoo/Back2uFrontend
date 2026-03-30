@@ -7,6 +7,7 @@ import Working from "../components/Route/HowWorks/Working.jsx";
 import StatsSection from "../components/StatsSection/StatsSection.jsx";
 import { useSelector } from "react-redux";
 import Loader from "../components/Layout/Loader.jsx";
+import DemoSection from "../components/Route/DemoSection/DemoSection.jsx";
 
 
 const HomePage = () => {
@@ -28,6 +29,9 @@ const HomePage = () => {
           <FeaturesSection />
           <br />
           <Working />
+          <br/>
+          <DemoSection/>
+          <br/>
           <Footer />
         </div>
       )}
