@@ -20,7 +20,6 @@ const LostFoundDetails = ({ data }) => {
   const [selected, setSelected] = useState(0);
   const [openClaim, setOpenClaim] = useState(false);
 
-
   // ================= START CHAT =================
   const handleStartChat = async () => {
     try {
@@ -67,23 +66,25 @@ const LostFoundDetails = ({ data }) => {
       <div className="flex flex-col lg:flex-row gap-10">
         {/* LEFT SIDE - IMAGE */}
         <div className="lg:w-1/2">
-        {data?.images[selected]?.url ? (
-  <img
-    src={data.images[selected].url}
-    className="w-full h-[350px] object-cover rounded-xl shadow"
-    alt="item"
-  />
-) : (
-  <div className="w-full h-[350px] rounded-xl shadow bg-gray-100 flex items-center justify-center">
-    <p className="text-gray-400 text-sm font-medium">No Image Added</p>
-  </div>
-)}
+          {data?.images[selected]?.url ? (
+            <img
+              src={data.images[selected].url}
+              className="w-full h-[350px] object-cover rounded-xl shadow"
+              alt="item"
+            />
+          ) : (
+            <div className="w-full h-[350px] rounded-xl shadow bg-gray-100 flex items-center justify-center">
+              <p className="text-gray-400 text-sm font-medium">
+                No Image Added
+              </p>
+            </div>
+          )}
           {/* <img
             src={data?.images[selected]?.url || "/placeholder.png"}
             className="w-full h-[350px] object-cover rounded-xl shadow"
             alt="item"
           />
-*/} 
+*/}
           {/* Thumbnails */}
           <div className="flex gap-3 mt-3">
             {data?.images.map((img, index) => (
@@ -155,7 +156,7 @@ const LostFoundDetails = ({ data }) => {
             */}
 
             {/* Only show claim button for Found items */}
-            {data.type === "FoundItem" && data.status === "found" &&(
+            {data.type === "FoundItem" && data.status === "found" && (
               <button
                 onClick={() => setOpenClaim(true)}
                 className="bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
@@ -198,7 +199,10 @@ const LostFoundDetails = ({ data }) => {
             <ShieldCheck size={20} /> Verification Required
           </h3>
           <p className="text-gray-700 text-sm">
-            Your claim will be reviewed by the finder of the item. The finder can accept or reject your request. If additional verification is needed, the claim will be forwarded to the admin for final approval before handover.
+            Your claim will be reviewed by the finder of the item. The finder
+            can accept or reject your request. If additional verification is
+            needed, the claim will be forwarded to the admin for final approval
+            before handover.
           </p>
         </div>
       </div>
