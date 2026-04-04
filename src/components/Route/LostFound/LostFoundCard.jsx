@@ -8,11 +8,17 @@ const LostFoundCard = ({ data, type }) => {
       
       {/* Image */}
       <div className="h-48 w-full overflow-hidden rounded-t-3xl">
-        <img
-          src={imageUrl}
-          alt="item"
-          className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-500"
-        />
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="item"
+            className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gray-100">
+            <p className="text-gray-400 text-sm font-medium">No Image Added</p>
+          </div>
+        )}
       </div>
 
       <div className="p-5">
