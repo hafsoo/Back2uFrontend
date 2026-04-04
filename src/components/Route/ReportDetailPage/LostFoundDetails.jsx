@@ -67,12 +67,23 @@ const LostFoundDetails = ({ data }) => {
       <div className="flex flex-col lg:flex-row gap-10">
         {/* LEFT SIDE - IMAGE */}
         <div className="lg:w-1/2">
-          <img
+        {data?.images[selected]?.url ? (
+  <img
+    src={data.images[selected].url}
+    className="w-full h-[350px] object-cover rounded-xl shadow"
+    alt="item"
+  />
+) : (
+  <div className="w-full h-[350px] rounded-xl shadow bg-gray-100 flex items-center justify-center">
+    <p className="text-gray-400 text-sm font-medium">No Image Added</p>
+  </div>
+)}
+          {/* <img
             src={data?.images[selected]?.url || "/placeholder.png"}
             className="w-full h-[350px] object-cover rounded-xl shadow"
             alt="item"
           />
-
+*/} 
           {/* Thumbnails */}
           <div className="flex gap-3 mt-3">
             {data?.images.map((img, index) => (
