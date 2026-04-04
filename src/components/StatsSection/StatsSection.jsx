@@ -38,7 +38,8 @@ const StatsSection = () => {
     },
     {
       title: "Avg. Response",
-      value: `${stats.avgResponse}h`,
+      //value: `${stats.avgResponse}h`,
+      value: "< 2 min",
       subtitle: "Faster than ever",
       icon: <Clock className="text-amber-600" />,
       color: "bg-amber-50",

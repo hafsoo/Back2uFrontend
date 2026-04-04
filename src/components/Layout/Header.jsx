@@ -66,7 +66,7 @@ const Header = ({ activeHeading }) => {
       <div
         className={`w-full transition-all duration-300 ease-in-out ${
           scrolled
-            ? "fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-b border-gray-100"
+            ? "fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border-b border-gray-100"
             : "relative bg-white border-b border-transparent"
         }`}
       >
