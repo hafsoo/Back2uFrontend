@@ -14,8 +14,9 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-300 overflow-hidden">
-
+    <footer 
+    //className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-300 overflow-hidden">
+         className="relative  bg-[#1e3a5f] text-white overflow-hidden">
       {/* Decorative Background Blobs */}
       <div className="absolute top-[-120px] left-[-120px] w-[320px] h-[320px] bg-blue-300/20 rounded-full blur-[120px]" />
       <div className="absolute bottom-[-150px] right-[-100px] w-[350px] h-[350px] bg-indigo-500/20 rounded-full blur-[120px]" />
@@ -29,7 +30,8 @@ const Footer = () => {
           <img
             src="/images/logoo.png"
             alt="Back2U"
-            className="h-[90px] w-auto mb-6"
+            //className="h-[90px] w-auto mb-6"
+             className=" h-[150px] w-[170px]  rounded-full ring-2 ring-white/10 mb-6"
           />
 
           <p className="text-sm leading-relaxed text-gray-400 max-w-xs">
@@ -39,20 +41,20 @@ const Footer = () => {
 
           <div className="flex items-center mt-6 space-x-5">
             <AiFillFacebook
-              size={22}
-              className="cursor-pointer text-gray-400 hover:text-blue-500 transition duration-300 hover:scale-110"
+              size={26}
+              className="cursor-pointer text-white hover:text-blue-500 transition duration-300 hover:scale-110"
             />
             <AiOutlineTwitter
-              size={22}
-              className="cursor-pointer text-gray-400 hover:text-sky-400 transition duration-300 hover:scale-110"
+              size={26}
+              className="cursor-pointer text-white hover:text-sky-400 transition duration-300 hover:scale-110"
             />
             <AiFillInstagram
-              size={22}
-              className="cursor-pointer text-gray-400 hover:text-pink-500 transition duration-300 hover:scale-110"
+              size={26}
+              className="cursor-pointer text-white hover:text-pink-500 transition duration-300 hover:scale-110"
             />
             <AiFillYoutube
-              size={22}
-              className="cursor-pointer text-gray-400 hover:text-red-500 transition duration-300 hover:scale-110"
+              size={26}
+              className="cursor-pointer text-white hover:text-red-500 transition duration-300 hover:scale-110"
             />
           </div>
         </div>
@@ -132,11 +134,7 @@ const Footer = () => {
             </Link>
           </div>
 
-          <img
-            src="https://hamart-shop.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Ffooter-payment.a37c49ac.png&w=640&q=75"
-            alt="Payment methods"
-            className="h-[22px] opacity-80"
-          />
+         
         </div>
       </div>
     </footer>
