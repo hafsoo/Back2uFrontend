@@ -37,7 +37,8 @@ const StatsSection = () => {
       color: "bg-green-50",
     },
     {
-      title: "Avg. Response",
+      title: "Match Speed",
+      //title: "Avg. Response",
       //value: `${stats.avgResponse}h`,
       value: "< 2 min",
       subtitle: "Faster than ever",
