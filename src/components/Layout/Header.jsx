@@ -106,7 +106,8 @@ const Header = ({ activeHeading }) => {
             <img
               src="/images/logoo.png"
               alt="Back2U"
-              className="h-[90px] w-[120px] object-contain transition duration-300 hover:scale-105 hover:opacity-90"
+              className="h-[200px] w-[170px] object-contain transition duration-300 hover:scale-105 hover:opacity-90"
+              //className="h-[90px] w-[120px] object-contain transition duration-300 hover:scale-105 hover:opacity-90"
             />
           </Link>
 
@@ -123,8 +124,8 @@ const Header = ({ activeHeading }) => {
                rounded-2xl
               bg-white shadow-sm
               focus:shadow-md
-               focus:ring-2 focus:ring-blue-500/30
-             focus:border-blue-500
+               focus:ring-2 focus:ring-blue-[#1e3a5f]
+             focus:border-[#1e3a5f]
                focus:outline-none
 transition-all duration-300
 text-gray-700
@@ -179,12 +180,11 @@ backdrop-blur-xl
             <Link
               to="/browse"
               className="px-6 py-3
-bg-gradient-to-r from-blue-600 to-indigo-600
-hover:from-blue-700 hover:to-indigo-700
+bg-emerald-500 
 text-white font-medium
 rounded-2xl
-shadow-lg shadow-blue-500/20
-hover:shadow-xl hover:shadow-blue-500/30
+shadow-lg shadow-green-500/20
+hover:shadow-xl hover:shadow-green-500/30
 transition-all duration-300
 flex items-center"
             >
@@ -208,7 +208,9 @@ flex items-center"
         </div>
 
         {/* DESKTOP NAVBAR */}
-        <div className="hidden lg:block border-t  border-gray-100/70 backdrop-blur-sm">
+        <div 
+        //className="hidden lg:block border-t  border-gray-100/70 backdrop-blur-sm">
+          className="hidden lg:block border-t  border-gray-100/70 backdrop-blur-sm bg-[#1e3a5f]">
           <div className={`${styles.section} flex justify-center h-[70px]`}>
             <Navbar active={activeHeading} scrolled={scrolled} />
           </div>
