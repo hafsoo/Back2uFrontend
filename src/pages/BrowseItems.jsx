@@ -121,11 +121,19 @@ const allCategories = [
       <div className="items-grid">
         {visibleItems.map((item) => (
           <div className="item-card" key={item._id} onClick={() => navigate(`/lost-found/${item._id}`)}>
-            <img
-              src={item.images?.[0]?.url}
-              alt={item.itemName}
-              className="item-img"
-            />
+            {item.images?.[0]?.url ? (
+              <img
+                src={item.images?.[0]?.url}
+                alt={item.itemName}
+                className="item-img"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                <p className="text-gray-400 text-sm font-medium">
+                  No Image Added
+                </p>
+              </div>
+            )}
 
             <div className="item-info">
               <h3>{item.itemName}</h3>
