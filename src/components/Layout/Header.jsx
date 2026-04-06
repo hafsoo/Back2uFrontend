@@ -86,11 +86,24 @@ const Header = ({ activeHeading }) => {
 
           {isAuthenticated ? (
             <Link to="/profile">
-              <img
-                src={user?.avatar?.url || "/images/default-avatar.png"}
+             {/*
+             <img
+                src={user?.avatar?.url}
                 className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover"
                 alt="profile"
               />
+               */}
+               {user?.avatar?.url ? (
+    <img
+      src={user.avatar.url}
+      className="w-12 h-12 rounded-2xl border-2 border-blue-500 object-cover hover:shadow-md hover:ring-4 hover:ring-blue-200 transition-all duration-300"
+      alt="profile"
+    />
+  ) : (
+    <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+  {user?.name?.charAt(0).toUpperCase()}
+</div>
+  )}
             </Link>
           ) : (
             <Link to="/login">
