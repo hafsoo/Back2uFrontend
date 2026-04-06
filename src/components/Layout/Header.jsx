@@ -193,11 +193,22 @@ flex items-center"
 
             {isAuthenticated ? (
               <Link to="/profile">
-                <img
+                {user?.avatar?.url ? (
+                  <img
+                    src={user.avatar.url}
+                    className="w-12 h-12 rounded-2xl border-2 border-blue-500 object-cover hover:shadow-md hover:ring-4 hover:ring-blue-200 transition-all duration-300"
+                    alt="profile"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-2xl bg-blue-500 flex items-center justify-center text-white font-bold text-lg border-2 border-blue-500 hover:shadow-md hover:ring-4 hover:ring-blue-200 transition-all duration-300">
+                    {user?.name?.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                {/* <img
                   src={user?.avatar?.url || "/images/default-avatar.png"}
                   className="w-12 h-12 rounded-2xl border-2 border-blue-500 object-cover hover:shadow-md hover:ring-4 hover:ring-blue-200 transition-all duration-300"
                   alt="profile"
-                />
+                /> */}
               </Link>
             ) : (
               <Link to="/login">
@@ -208,9 +219,10 @@ flex items-center"
         </div>
 
         {/* DESKTOP NAVBAR */}
-        <div 
-        //className="hidden lg:block border-t  border-gray-100/70 backdrop-blur-sm">
-          className="hidden lg:block border-t  border-gray-100/70 backdrop-blur-sm bg-[#1e3a5f]">
+        <div
+          //className="hidden lg:block border-t  border-gray-100/70 backdrop-blur-sm">
+          className="hidden lg:block border-t  border-gray-100/70 backdrop-blur-sm bg-[#1e3a5f]"
+        >
           <div className={`${styles.section} flex justify-center h-[70px]`}>
             <Navbar active={activeHeading} scrolled={scrolled} />
           </div>
