@@ -1,4 +1,3 @@
-/*
 import React, { useEffect, useState } from "react";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { MdReportProblem } from "react-icons/md";
@@ -6,47 +5,88 @@ import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { server } from "../../server";
-import { TrendingUp, PackageSearch } from "lucide-react";
+import { TrendingUp } from "lucide-react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
 const AdminDashboardMain = () => {
+  const [isDark, setIsDark] = useState(
+    document.documentElement.classList.contains("dark"),
+  );
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
   const [lostReports, setLostReports] = useState([]);
   const [foundReports, setFoundReports] = useState([]);
   const [latestReports, setLatestReports] = useState([]);
 
   const [dashboardCards, setDashboardCards] = useState({
-  monthlyReports: { lostMonthly: [], foundMonthly: [] },
-});
- const monthNames = [
-    "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"
+    monthlyReports: { lostMonthly: [], foundMonthly: [] },
+  });
+
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
-useEffect(() => {
-  const fetchDashboardCards = async () => {
-    try {
-      const { data } = await axios.get(`${server}/statistics/dashboard-cards`, {
-        withCredentials: true,
-      });
-      setDashboardCards(data.cards);
-    } catch (error) {
-      console.error("Error fetching dashboard cards:", error);
-    }
-  };
 
-  fetchDashboardCards();
-}, []);
+  // ================= FETCH DASHBOARD STATS =================
+  useEffect(() => {
+    const fetchDashboardCards = async () => {
+      try {
+        const { data } = await axios.get(
+          `${server}/statistics/dashboard-cards`,
+          { withCredentials: true },
+        );
+        setDashboardCards(data.cards);
+      } catch (error) {
+        console.error("Error fetching dashboard cards:", error);
+      }
+    };
 
+    fetchDashboardCards();
+  }, []);
 
-  // ================= FETCH DATA =================
+  // ================= FETCH REPORTS =================
   useEffect(() => {
     const fetchReports = async () => {
       try {
         const { data: lostData } = await axios.get(
           `${server}/lost/admin-all-lost-items`,
-          { withCredentials: true }
+          { withCredentials: true },
         );
 
         const { data: foundData } = await axios.get(
           `${server}/found/admin-all-found-items`,
-          { withCredentials: true }
+          { withCredentials: true },
         );
 
         setLostReports(lostData.lostItems || []);
@@ -71,40 +111,76 @@ useEffect(() => {
 
     fetchReports();
   }, []);
+  // ================= CHART DATA =================
+  const monthlyData = monthNames.map((month, index) => {
+    const lost =
+      dashboardCards.monthlyReports.lostMonthly.find((m) => m._id === index + 1)
+        ?.count || 0;
+
+    const found =
+      dashboardCards.monthlyReports.foundMonthly.find(
+        (m) => m._id === index + 1,
+      )?.count || 0;
+
+    return { month, Lost: lost, Found: found };
+  });
+
+  //const statusData = [
+    //{ name: "Lost", value: lostReports.length },
+    //{ name: "Found", value: foundReports.length },
+  //];
+ // ✅ UPDATED STATUS DATA
+  const total = lostReports.length + foundReports.length;
+
+  const statusData = [
+    {
+      name: "Lost",
+      value: lostReports.length,
+      percent: total ? ((lostReports.length / total) * 100).toFixed(0) : 0,
+    },
+    {
+      name: "Found",
+      value: foundReports.length,
+      percent: total ? ((foundReports.length / total) * 100).toFixed(0) : 0,
+    },
+  ];
+
+  const COLORS = ["#ef4444", "#22c55e"];
 
   // ================= DATAGRID =================
   const columns = [
     {
       field: "id",
       headerName: "Report ID",
-      minWidth: 200,
       flex: 1,
+      minWidth: 150,
+      renderCell: (params) => <span>{params.value.slice(0, 8)}...</span>,
     },
     {
       field: "itemName",
       headerName: "Item",
-      minWidth: 150,
       flex: 0.8,
+      minWidth: 120,
     },
     {
       field: "reportType",
       headerName: "Type",
-      minWidth: 120,
       flex: 0.6,
+      minWidth: 100,
     },
     {
       field: "status",
       headerName: "Status",
-      minWidth: 120,
       flex: 0.6,
+      minWidth: 100,
       cellClassName: (params) =>
         params.value === "claimed" ? "greenColor" : "redColor",
     },
     {
       field: "createdAt",
       headerName: "Date",
-      minWidth: 150,
       flex: 0.7,
+      minWidth: 120,
     },
   ];
 
@@ -117,139 +193,220 @@ useEffect(() => {
   }));
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 dark:bg-gray-800 p-6">
-   
-      <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-6">
+    <div className="w-full min-h-screen bg-gray-100 dark:bg-gray-800 p-3 sm:p-4 md:p-6">
+      {/* ================= OVERVIEW ================= */}
+      <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 dark:text-white mb-6">
         Overview
       </h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mr-12
-       ">
-       
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
+        {/* TOTAL */}
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition p-4 sm:p-5 md:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-white uppercase">
                 Total Reports
               </p>
-              <h2 className="text-3xl font-bold text-gray-800 dark:text-white mt-2">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mt-2">
                 {lostReports.length + foundReports.length}
               </h2>
             </div>
-            <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900/30">
-              <AiOutlineFileSearch size={26} className="text-blue-600 dark:text-blue-400" />
+            <div className="p-2 sm:p-3 rounded-full bg-blue-500 dark:bg-blue-200">
+              <AiOutlineFileSearch size={22} />
             </div>
           </div>
         </div>
 
-        
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition p-6">
+        {/* LOST */}
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition p-4 sm:p-5 md:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-white uppercase">
                 Lost Reports
               </p>
-              <h2 className="text-3xl font-bold text-gray-800  dark:text-white mt-2">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mt-2">
                 {lostReports.length}
               </h2>
               <Link
                 to="/admin-all-lost"
-                className="text-sm text-blue-600 dark:text-blue-400 hover:underline mt-3 inline-block"
+                className="text-xs sm:text-sm text-blue-600 hover:underline mt-2 inline-block"
               >
                 View Reports →
               </Link>
             </div>
-            <div className="p-3 rounded-full bg-red-100 dark:bg-red-900/30">
-              <MdReportProblem size={26} className="text-red-600 dark:text-red-400" />
+            <div className="p-2 sm:p-3 rounded-full bg-red-500 dark:bg-red-500">
+              <MdReportProblem size={22} />
             </div>
           </div>
         </div>
 
-     
-        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition p-6">
+        {/* FOUND */}
+        <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition p-4 sm:p-5 md:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-white uppercase">
                 Found Reports
               </p>
-              <h2 className="text-3xl font-bold text-gray-800 dark:text-white mt-2">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mt-2">
                 {foundReports.length}
               </h2>
               <Link
                 to="/admin-all-founds"
-                className="text-sm text-blue-600 dark:text-blue-400 hover:underline mt-3 inline-block"
+                className="text-xs sm:text-sm text-blue-600 hover:underline mt-2 inline-block"
               >
                 View Reports →
               </Link>
             </div>
-            <div className="p-3 rounded-full bg-green-100 dark:bg-green-900/30">
-              <AiOutlineFileSearch size={26} className="text-green-600 dark:text-green-400" />
+            <div className="p-2 sm:p-3 rounded-full bg-green-500 dark:bg-green-500">
+              <AiOutlineFileSearch size={22} />
             </div>
           </div>
         </div>
       </div>
-      
-    <div className="flex items-center justify-between mb-5 mr-12">
-      <div>
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-2">
+
+      {/* ================= CHARTS ================= */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        {/* BAR CHART */}
+        <div className="lg:col-span-2 bg-white dark:bg-gray-800 p-5 rounded-xl shadow border dark:border-gray-700">
+          <h3 className="text-lg font-semibold mb-4 dark:text-white flex items-center gap-2">
+            Monthly Reports <TrendingUp size={18} />
+          </h3>
+
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={monthlyData}>
+              <XAxis dataKey="month" stroke="#888" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="Lost" fill="#ef4444" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Found" fill="#22c55e" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* DONUT */}
+        <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow border dark:border-gray-700">
+          <h3 className="text-lg font-semibold mb-4 dark:text-white">
+            Status Breakdown
+          </h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie
+                data={statusData}
+                innerRadius={70}
+                outerRadius={90}
+                dataKey="value"
+                stroke="none"
+              >
+                {statusData.map((entry, index) => (
+                  <Cell key={index} fill={COLORS[index]} />
+                ))}
+              </Pie>
+
+              {/* CENTER TEXT */}
+              <text
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="fill-gray-800 dark:fill-white"
+              >
+                <tspan fontSize="22" fontWeight="bold">
+                  {total}
+                </tspan>
+                <tspan x="50%" dy="20" fontSize="12">
+                  total
+                </tspan>
+              </text>
+            </PieChart>
+          </ResponsiveContainer>
+
+{/* LEGEND */}
+          <div className="mt-4 space-y-2 text-sm">
+            {statusData.map((item, index) => (
+              <div key={index} className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: COLORS[index] }}
+                  ></span>
+                  <span className="text-gray-700 dark:text-gray-300">
+                    {item.name}
+                  </span>
+                </div>
+
+                <div className="text-gray-700 dark:text-gray-300">
+                  {item.value} — {item.percent}%
+                </div>
+              </div>
+            ))}
+          </div>
+          
+
+          
+        </div>
+      </div>
+
+      {/* ================= MONTHLY ================= 
+      <div 
+      className="flex items-center justify-between mb-6 gap-2"
+      //className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5 gap-2"
+      >
+        <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white">
           Monthly Item Reports
         </h3>
-      </div>
-      <TrendingUp className="text-blue-500" size={28} />
-    </div>
-
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      
-     
-      <div>
-        <div className="flex items-center gap-2 mb-4">
-          <PackageSearch className="text-red-500" size={20} />
-          <h4 className="text-sm font-semibold text-red-600 uppercase tracking-wide">
-            Lost Items
-          </h4>
+        <div
+         className="flex-shrink-0 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800/30">
+<TrendingUp size={24} className="text-blue-600 dark:text-blue-400" />
         </div>
-
-        <div className="flex flex-wrap gap-2">
-          {dashboardCards.monthlyReports.lostMonthly.map((m, i) => (
-            <span
-              key={i}
-              className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs px-3 py-1 rounded-full border border-red-200 dark:border-red-800"
-            >
-              {monthNames[m._id - 1]} : {m.count}
-            </span>
-          ))}
-        </div>
+        
       </div>
 
-    
-      <div>
-        <div className="flex items-center gap-2 mb-4">
-          <PackageSearch className="text-green-500" size={20} />
-          <h4 className="text-sm font-semibold text-green-600 uppercase tracking-wide">
-            Found Items
-          </h4>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
+
+       //lost
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <PackageSearch className="text-red-500" size={18} />
+            <h4 className="text-xs sm:text-sm font-semibold text-red-600 uppercase">
+              Lost Items
+            </h4>
+          </div>
+
+          <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
+            {dashboardCards.monthlyReports.lostMonthly.map((m, i) => (
+              <span key={i} className="text-xs px-2 py-1 rounded-full border">
+                {monthNames[m._id - 1]} : {m.count}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          {dashboardCards.monthlyReports.foundMonthly.map((m, i) => (
-            <span
-              key={i}
-              className="bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 text-xs px-3 py-1 rounded-full border border-green-200 dark:border-green-800"
-            >
-              {monthNames[m._id - 1]} : {m.count}
-            </span>
-          ))}
+        //found
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <PackageSearch className="text-green-500" size={18} />
+            <h4 className="text-xs sm:text-sm font-semibold text-green-600 uppercase">
+              Found Items
+            </h4>
+          </div>
+
+          <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
+            {dashboardCards.monthlyReports.foundMonthly.map((m, i) => (
+              <span key={i} className="text-xs px-2 py-1 rounded-full border">
+                {monthNames[m._id - 1]} : {m.count}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
-
-    </div>
-
-      <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 mt-3">
+*/}
+      {/* ================= LATEST ================= */}
+      <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 dark:text-white mt-6 mb-4">
         Latest Reports
       </h3>
 
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 border dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-2 sm:p-4 border dark:border-gray-700 overflow-x-auto">
         <DataGrid
           rows={rows}
           columns={columns}
@@ -258,14 +415,50 @@ useEffect(() => {
           disableSelectionOnClick
           sx={{
             border: "none",
+
+            // ✅ MAIN HEADER CONTAINER
             "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#f9fafb",
-              //dark: { backgroundColor: "rgba(255,255,255,0.05)" },
+              backgroundColor: isDark ? "#334155" : "#f9fafb",
+              color: isDark ? "#fff" : "#000",
+            },
+
+            // ✅ INNER HEADER FIX (IMPORTANT 🔥)
+            "& .MuiDataGrid-columnHeadersInner": {
+              backgroundColor: isDark ? "#334155" : "#f9fafb",
+            },
+
+            // ✅ EACH HEADER CELL (IMPORTANT 🔥🔥)
+            "& .MuiDataGrid-columnHeader": {
+              backgroundColor: isDark ? "#334155" : "#f9fafb",
+              color: isDark ? "#fff" : "#000",
+            },
+
+            // ✅ HEADER TEXT
+            "& .MuiDataGrid-columnHeaderTitle": {
+              color: isDark ? "#fff" : "#000",
               fontWeight: "600",
             },
-            "& .MuiDataGrid-row:hover": {
-              backgroundColor: "#f3f4f6",
 
+            // ✅ ROWS
+            "& .MuiDataGrid-row": {
+              backgroundColor: isDark ? "#1e293b" : "#fff",
+              color: isDark ? "#e2e8f0" : "#111827",
+            },
+
+            // ✅ CELL BORDER
+            "& .MuiDataGrid-cell": {
+              borderBottom: isDark ? "1px solid #334155" : "1px solid #e5e7eb",
+            },
+
+            // ✅ HOVER
+            "& .MuiDataGrid-row:hover": {
+              backgroundColor: isDark ? "#334155" : "#f3f4f6",
+            },
+
+            // ✅ FOOTER
+            "& .MuiDataGrid-footerContainer": {
+              backgroundColor: isDark ? "#1e293b" : "#fff",
+              color: isDark ? "#fff" : "#000",
             },
           }}
         />
@@ -275,7 +468,9 @@ useEffect(() => {
 };
 
 export default AdminDashboardMain;
-*/
+
+
+/*
 import React, { useEffect, useState } from "react";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { MdReportProblem } from "react-icons/md";
@@ -403,14 +598,14 @@ const AdminDashboardMain = () => {
   return (
     <div className="w-full min-h-screen bg-gray-100 dark:bg-gray-800 p-3 sm:p-4 md:p-6">
       
-      {/* ================= OVERVIEW ================= */}
+    
       <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 dark:text-white mb-6">
         Overview
       </h3>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
         
-        {/* TOTAL */}
+        =
         <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition p-4 sm:p-5 md:p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -427,7 +622,7 @@ const AdminDashboardMain = () => {
           </div>
         </div>
 
-        {/* LOST */}
+       
         <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition p-4 sm:p-5 md:p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -447,7 +642,7 @@ const AdminDashboardMain = () => {
           </div>
         </div>
 
-        {/* FOUND */}
+
         <div className="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition p-4 sm:p-5 md:p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -468,7 +663,7 @@ const AdminDashboardMain = () => {
         </div>
       </div>
 
-      {/* ================= MONTHLY ================= */}
+
       <div 
       className="flex items-center justify-between mb-6 gap-2"
       //className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5 gap-2"
@@ -485,7 +680,7 @@ const AdminDashboardMain = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
 
-        {/* LOST */}
+     
         <div>
           <div className="flex items-center gap-2 mb-3">
             <PackageSearch className="text-red-500" size={18} />
@@ -503,7 +698,6 @@ const AdminDashboardMain = () => {
           </div>
         </div>
 
-        {/* FOUND */}
         <div>
           <div className="flex items-center gap-2 mb-3">
             <PackageSearch className="text-green-500" size={18} />
@@ -522,7 +716,7 @@ const AdminDashboardMain = () => {
         </div>
       </div>
 
-      {/* ================= LATEST ================= */}
+     
       <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 dark:text-white mt-6 mb-4">
         Latest Reports
       </h3>
@@ -555,3 +749,4 @@ const AdminDashboardMain = () => {
 };
 
 export default AdminDashboardMain;
+*/

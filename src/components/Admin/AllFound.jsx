@@ -5,6 +5,22 @@ import axios from "axios";
 import { server } from "../../server";
 
 const AllFound = () => {
+  const [isDark, setIsDark] = useState(
+      document.documentElement.classList.contains("dark"),
+    );
+    useEffect(() => {
+      const observer = new MutationObserver(() => {
+        setIsDark(document.documentElement.classList.contains("dark"));
+      });
+  
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+  
+      return () => observer.disconnect();
+    }, []);
+
   const [foundReports, setFoundReports] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -83,7 +99,7 @@ const AllFound = () => {
         All Found Reports
       </h2>
 
-      <div className="bg-white rounded-xl shadow-sm p-4">
+      <div className="bg-white dark:bg-gray-800  rounded-xl shadow-sm p-4">
         <DataGrid
           rows={rows}
           columns={columns}
@@ -94,12 +110,50 @@ const AllFound = () => {
           disableSelectionOnClick
           sx={{
             border: "none",
+
+            //  MAIN HEADER CONTAINER
             "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#f9fafb",
+              backgroundColor: isDark ? "#334155" : "#f9fafb",
+              color: isDark ? "#fff" : "#000",
+            },
+
+            // INNER HEADER FIX 
+            "& .MuiDataGrid-columnHeadersInner": {
+              backgroundColor: isDark ? "#334155" : "#f9fafb",
+            },
+
+            // EACH HEADER CELL 
+            "& .MuiDataGrid-columnHeader": {
+              backgroundColor: isDark ? "#334155" : "#f9fafb",
+              color: isDark ? "#fff" : "#000",
+            },
+
+            // HEADER TEXT
+            "& .MuiDataGrid-columnHeaderTitle": {
+              color: isDark ? "#fff" : "#000",
               fontWeight: "600",
             },
+
+            //  ROWS
+            "& .MuiDataGrid-row": {
+              backgroundColor: isDark ? "#1e293b" : "#fff",
+              color: isDark ? "#e2e8f0" : "#111827",
+            },
+
+            // ✅ CELL BORDER
+            "& .MuiDataGrid-cell": {
+              borderBottom: isDark ? "1px solid #334155" : "1px solid #e5e7eb",
+            },
+
+            // ✅ HOVER
             "& .MuiDataGrid-row:hover": {
-              backgroundColor: "#f3f4f6",
+              backgroundColor: isDark ? "#334155" : "#f3f4f6",
+            },
+
+            // ✅ FOOTER
+            "& .MuiDataGrid-footerContainer": {
+              backgroundColor: isDark ? "#1e293b" : "#fff",
+              color: isDark ? "#fff" : "#000",
             },
           }}
         />

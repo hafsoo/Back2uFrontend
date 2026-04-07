@@ -116,7 +116,7 @@ const AllClaims = () => {
   }, []);
 
   return (
-    <div className="w-full p-6 bg-gray-100 dark:bg-[#0f172a] min-h-screen transition-colors duration-300">
+    <div className="w-full p-6 bg-gray-100 dark:bg-gray-800  min-h-screen transition-colors duration-300">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">
         All Claims
       </h2>
