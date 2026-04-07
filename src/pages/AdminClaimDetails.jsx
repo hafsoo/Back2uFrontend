@@ -72,24 +72,24 @@ const handleAdminChat = async () => {
 
   if (!claim)
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="animate-pulse text-gray-600 text-lg">
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="animate-pulse text-gray-600 dark:text-gray-300 text-lg">
           Loading claim details...
         </div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-6">
       <div className="max-w-5xl mx-auto space-y-8">
         {/* HEADER */}
         <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-gray-800 tracking-tight">
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">
             Claim Review
           </h2>
           <button
             onClick={() => navigate(-1)}
-            className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-100 transition"
+            className="px-4 py-2 text-sm border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 dark:border-gray-600 dark:text-gray-200 transition"
           >
             Back
           </button>
@@ -100,7 +100,7 @@ const handleAdminChat = async () => {
           {/* LEFT SECTION */}
           <div className="lg:col-span-2 space-y-8">
             {/* ITEM CARD */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
               {claim.itemSnapshot?.images?.length > 0 && (
                 <img
                   src={claim.itemSnapshot.images[0]?.url}
@@ -110,7 +110,7 @@ const handleAdminChat = async () => {
               )}
 
               <div className="p-6 space-y-4">
-                <h3 className="text-2xl font-semibold text-gray-900">
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
                   {claim.itemSnapshot?.itemName}
                 </h3>
 
@@ -118,15 +118,15 @@ const handleAdminChat = async () => {
                 <span
                   className={`inline-block px-4 py-1 text-sm rounded-full font-medium ${
                     claim.itemSnapshot?.status === "lost"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : "bg-green-100 text-green-700"
+                      ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
+                      : "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
                   }`}
                 >
                   {claim.itemSnapshot?.status}
                 </span>
 
                 {/* Info */}
-                <div className="space-y-3 text-gray-700 pt-3">
+                <div className="space-y-3 text-gray-700 dark:text-gray-300 pt-3">
                   <p className="flex items-center gap-2">
                     <Tag size={18} />
                     <strong>Category:</strong>
@@ -152,7 +152,7 @@ const handleAdminChat = async () => {
 
                   <div>
                     <strong>Description:</strong>
-                    <p className="text-gray-600 mt-1 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400  mt-1 leading-relaxed">
                       {claim.itemSnapshot?.description}
                     </p>
                   </div>
@@ -161,25 +161,25 @@ const handleAdminChat = async () => {
             </div>
 
             {/* CLAIM ANSWERS */}
-            <div className="bg-white rounded-2xl shadow border border-gray-100 p-6">
-              <h3 className="text-lg font-semibold mb-4 text-gray-800">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow border border-gray-100 dark:border-gray-700 p-6">
+              <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
                 Verification Answers
               </h3>
 
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-lg bg-gray-50">
-                  <p className="text-sm text-gray-500">Color</p>
-                  <p className="font-medium">{claim.answers?.color}</p>
+                <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Color</p>
+                  <p className="font-medium dark:text-white">{claim.answers?.color}</p>
                 </div>
 
-                <div className="p-4 rounded-lg bg-gray-50">
-                  <p className="text-sm text-gray-500">Unique Marks</p>
-                  <p className="font-medium">{claim.answers?.marks}</p>
+                <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Unique Marks</p>
+                  <p className="font-medium dark:text-white">{claim.answers?.marks}</p>
                 </div>
 
-                <div className="p-4 rounded-lg bg-gray-50 col-span-full">
-                  <p className="text-sm text-gray-500">Proof</p>
-                  <p className="font-medium">
+                <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-700 col-span-full">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Proof</p>
+                  <p className="font-medium dark:text-white">
                     {claim.answers?.proof || "Not provided"}
                   </p>
                 </div>
@@ -190,24 +190,24 @@ const handleAdminChat = async () => {
           {/* RIGHT SIDEBAR */}
           <div className="space-y-6">
             {/* CLAIMANT INFO */}
-            <div className="bg-white rounded-2xl shadow border border-gray-100 p-6">
-              <h4 className="font-semibold text-gray-800 mb-3">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow border border-gray-100 dark:border-gray-700 p-6">
+              <h4 className="font-semibold text-gray-800 dark:text-white mb-3">
                 Claimant Info
               </h4>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 <strong>Name:</strong> {claim.claimant?.name}
               </p>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 <strong>Email:</strong> {claim.claimant?.email}
               </p>
             </div>
 
             {/* CHAT PLACEHOLDER */}
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-5">
-              <h4 className="font-semibold text-blue-800 mb-2">
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-2xl p-5">
+              <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-2">
                 Chat & Verification
               </h4>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-blue-700 dark:text-blue-400">
                 Communicate with claimant before approval. This improves trust
                 and reduces fraud.
               </p>
@@ -215,7 +215,7 @@ const handleAdminChat = async () => {
 
             {/* ACTION BUTTONS */}
             {claim.status === "awaiting_admin" && (
-              <div className="bg-white rounded-2xl shadow border p-6 space-y-3">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow border dark:border-gray-700 p-6 space-y-3">
                 <button
                   onClick={handleAdminChat}
                   className="w-full py-3 rounded-xl font-medium bg-blue-600 text-white hover:bg-blue-700 transition"
@@ -231,7 +231,7 @@ const handleAdminChat = async () => {
 
                 <button
                   onClick={() => updateStatus("rejected")}
-                  className="w-full py-3 rounded-xl font-medium border border-red-500 text-red-600 hover:bg-red-50 transition"
+                  className="w-full py-3 rounded-xl font-medium border border-red-500 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition"
                 >
                   Reject Claim
                 </button>
