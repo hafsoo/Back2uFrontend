@@ -8,7 +8,7 @@ import StatsSection from "../components/StatsSection/StatsSection.jsx";
 import { useSelector } from "react-redux";
 import Loader from "../components/Layout/Loader.jsx";
 import DemoSection from "../components/Route/DemoSection/DemoSection.jsx";
-
+import Testimonials from "../components/Route/Testimonials.jsx";
 
 const HomePage = () => {
   const { loading } = useSelector((state) => state.user);
@@ -31,6 +31,9 @@ const HomePage = () => {
           <Working />
           <br/>
           <DemoSection/>
+          <br/>
+           <br/>
+          <Testimonials/>
           <br/>
           <Footer />
         </div>
