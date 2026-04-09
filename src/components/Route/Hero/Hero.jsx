@@ -74,7 +74,7 @@ const Hero = () => {
             alt="Campus"
             className="relative w-full h-[420px] lg:h-[500px] object-cover rounded-2xl shadow-2xl border border-white/10 transition-all duration-500 hover:scale-105"
           />
-          {/* 💬 Floating Notification */}
+          {/* 💬 Floating Notification (like screenshot) */}
           <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md rounded-xl px-4 py-3 flex items-center gap-3 shadow-lg">
             <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white">
               ✨
@@ -88,7 +88,7 @@ const Hero = () => {
                 Your item was found at library — 2 min ago
               </p>
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -96,5 +96,3 @@ const Hero = () => {
 };
 
 export default Hero;
-
-
