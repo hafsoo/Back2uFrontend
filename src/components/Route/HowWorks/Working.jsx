@@ -35,7 +35,7 @@ const steps = [
 
 const Working = () => {
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-[#020617] to-[#020617] text-white">
+    <section  id="working" className="py-20 px-6 bg-gradient-to-b from-[#020617] to-[#020617] text-white">
       
       {/* Heading */}
       <div className="text-center max-w-3xl mx-auto">
