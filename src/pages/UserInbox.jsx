@@ -585,7 +585,7 @@ const UserInbox = () => {
           <div className="b2u-sidebar-top">
             <div className="b2u-logo">
               <img
-                src="/images/logoo.png"
+                src="/images/radar.png"
                 alt="logo"
                 style={{ width: 50, height: 45 }}
               />
