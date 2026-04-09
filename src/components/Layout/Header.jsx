@@ -1,3 +1,178 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { IoIosArrowForward } from "react-icons/io";
+import { BiMenuAltLeft } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
+import { RxCross1 } from "react-icons/rx";
+import Navbar from "./Navbar";
+import { useSelector } from "react-redux";
+
+const Header = ({ activeHeading }) => {
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 70);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <>
+      {/* ================= HEADER ================= */}
+      <div
+        className={`w-full transition-all duration-300 ${
+          scrolled
+            ? "fixed top-0 left-0 right-0 z-50 bg-[#0b1c2c] shadow-md"
+            : "relative bg-[#0b1c2c]"
+        }`}
+      >
+        {/* ================= MOBILE ================= */}
+        <div className="lg:hidden flex items-center justify-between px-4 py-3 text-white bg-gradient-to-b from-[#020617] to-[#020617]">
+          <button onClick={() => setOpen(true)}>
+            <BiMenuAltLeft size={28} />
+          </button>
+
+          <Link to="/" className="flex items-center gap-1">
+            <img
+              src="/images/radar.png"
+              alt="Back2U Logo"
+              className="w-6 h-6 object-contain"
+            />
+            <span className="font-semibold">
+              Back<span className="text-cyan-400">2U</span>
+            </span>
+          </Link>
+
+          {isAuthenticated ? (
+            <Link to="/profile">
+              <img
+                src={user?.avatar?.url || "/images/default-avatar.png"}
+                className="w-8 h-8 rounded-full border border-white/30"
+                alt="profile"
+              />
+            </Link>
+          ) : (
+            <Link to="/login">
+              <CgProfile size={26} />
+            </Link>
+          )}
+        </div>
+
+        {/* ================= DESKTOP ================= */}
+        <div
+          className="
+          hidden lg:flex
+          items-center justify-between
+          px-16 h-[80px]
+          bg-gradient-to-b from-[#020617] to-[#020617]
+          text-white
+        "
+        >
+          {/* LEFT: LOGO */}
+          <Link to="/" className="flex items-center gap-2">
+            <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-cyan-400/20 bg-cyan-400/10">
+              <img
+                src="/images/radar.png"
+                alt="Back2U Logo"
+                className="w-7 h-7 object-contain"
+              />
+            </div>
+
+            <span className="text-2xl font-bold tracking-wide">
+              Back<span className="text-cyan-400">2U</span>
+            </span>
+          </Link>
+
+          {/* CENTER: NAV LINKS */}
+          <div className="flex items-center gap-10 text-sm">
+            <Navbar active={activeHeading} />
+          </div>
+
+          {/* RIGHT SIDE */}
+          <div className="flex items-center gap-5">
+            {/* Browse Button */}
+            <Link
+              to="/browse"
+              className="
+              bg-cyan-400
+              text-black
+              px-5 py-2
+              rounded-xl
+              font-semibold
+              hover:bg-cyan-300
+              transition
+              flex items-center
+              "
+            >
+              Browse Items <IoIosArrowForward className="ml-1" />
+            </Link>
+
+            {/* Profile / Login */}
+            {isAuthenticated ? (
+              <Link to="/profile">
+                <img
+                  src={user?.avatar?.url || "/images/default-avatar.png"}
+                  className="
+                  w-9 h-9 rounded-full object-cover
+                  border border-white/30
+                  hover:ring-2 hover:ring-cyan-300
+                  transition
+                  "
+                  alt="profile"
+                />
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="text-gray-300 hover:text-white text-sm transition"
+              >
+                Log In
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Spacer */}
+      <div style={{ height: scrolled ? "70px" : "0px" }} />
+
+      {/* ================= MOBILE SIDEBAR ================= */}
+      {open && (
+        <div className="fixed inset-0 z-50 flex">
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setOpen(false)}
+          />
+
+          <div className="relative w-3/4 max-w-xs h-full bg-[#0b1c2c] text-white p-5">
+            <div className="flex justify-between items-center mb-5">
+              <h2 className="font-semibold text-lg">Menu</h2>
+              <button onClick={() => setOpen(false)}>
+                <RxCross1 size={22} />
+              </button>
+            </div>
+
+            <Navbar active={activeHeading} isMobile />
+
+            <Link
+              to="/browse"
+              className="block mt-6 py-2 rounded-xl bg-cyan-400 text-black text-center font-semibold"
+            >
+              Browse Items
+            </Link>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Header;
+
+/*
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/styles";
@@ -62,7 +237,7 @@ const Header = ({ activeHeading }) => {
 
   return (
     <>
-      {/* MAIN HEADER */}
+      
       <div
         className={`w-full transition-all duration-300 ease-in-out ${
           scrolled
@@ -70,7 +245,7 @@ const Header = ({ activeHeading }) => {
             : "relative bg-white border-b border-transparent"
         }`}
       >
-        {/* ---------------- MOBILE HEADER ---------------- */}
+       
         <div className="lg:hidden flex items-center justify-between w-full px-4 py-3 relative">
           <button onClick={() => setOpen(true)}>
             <BiMenuAltLeft size={32} className="text-gray-700" />
@@ -86,13 +261,7 @@ const Header = ({ activeHeading }) => {
 
           {isAuthenticated ? (
             <Link to="/profile">
-             {/*
-             <img
-                src={user?.avatar?.url}
-                className="w-10 h-10 rounded-full border-2 border-blue-500 object-cover"
-                alt="profile"
-              />
-               */}
+            
                {user?.avatar?.url ? (
     <img
       src={user.avatar.url}
@@ -112,19 +281,19 @@ const Header = ({ activeHeading }) => {
           )}
         </div>
 
-        {/* ---------------- DESKTOP HEADER ---------------- */}
+    
         <div className="hidden lg:flex items-center justify-between px-16 py-4 h-[100px]">
-          {/* Logo */}
+          \
           <Link to="/">
             <img
               src="/images/logoo.png"
               alt="Back2U"
               className="h-[200px] w-[170px] object-contain transition duration-300 hover:scale-105 hover:opacity-90"
-              //className="h-[90px] w-[120px] object-contain transition duration-300 hover:scale-105 hover:opacity-90"
+             
             />
           </Link>
 
-          {/* Search */}
+        
           <div className="relative flex-1 mx-12 max-w-2xl">
             <input
               type="text"
@@ -188,7 +357,7 @@ backdrop-blur-xl
             )}
           </div>
 
-          {/* Right Actions */}
+        
           <div className="flex items-center gap-3">
             <Link
               to="/browse"
@@ -217,11 +386,7 @@ flex items-center"
                     {user?.name?.charAt(0).toUpperCase()}
                   </div>
                 )}
-                {/* <img
-                  src={user?.avatar?.url || "/images/default-avatar.png"}
-                  className="w-12 h-12 rounded-2xl border-2 border-blue-500 object-cover hover:shadow-md hover:ring-4 hover:ring-blue-200 transition-all duration-300"
-                  alt="profile"
-                /> */}
+               
               </Link>
             ) : (
               <Link to="/login">
@@ -231,9 +396,9 @@ flex items-center"
           </div>
         </div>
 
-        {/* DESKTOP NAVBAR */}
+      
         <div
-          //className="hidden lg:block border-t  border-gray-100/70 backdrop-blur-sm">
+          
           className="hidden lg:block border-t  border-gray-100/70 backdrop-blur-sm bg-[#1e3a5f]"
         >
           <div className={`${styles.section} flex justify-center h-[70px]`}>
@@ -242,10 +407,10 @@ flex items-center"
         </div>
       </div>
 
-      {/* Spacer */}
+     
       <div style={{ height: scrolled ? COMBINED_HEIGHT : 0 }} />
 
-      {/* ---------------- MOBILE SIDEBAR ---------------- */}
+      
       {open && (
         <div className="fixed inset-0 z-50 flex">
           <div
@@ -276,3 +441,4 @@ flex items-center"
 };
 
 export default Header;
+*/

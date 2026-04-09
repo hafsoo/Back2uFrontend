@@ -57,7 +57,7 @@ const Navbar = ({ active: propActive = 1, scrolled = false, isMobile = false }) 
             to={item.url.startsWith("#") ? location.pathname : item.url}
             onClick={(e) => handleNavClick(e, item.url, index)}
             className={`px-4 py-3 font-medium transition-all duration-200
-              ${isActive ? "text-emerald-500" : "text-white hover:text-emerald-600"}
+              ${isActive ? "text-cyan-500" : "text-white hover:text-cyan-600"}
               ${isMobile ? "border-b border-gray-200" : ""}
             `}
           >
