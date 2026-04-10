@@ -48,18 +48,22 @@ const Header = ({ activeHeading }) => {
 
           {isAuthenticated ? (
             <Link to="/profile">
-             {user?.avatar?.url || "/images/default-avatar.png" ? (
-    <img
-      src={user?.avatar?.url || "/images/default-avatar.png"}
-      className="w-12 h-12 rounded-2xl border-2 border-blue-500 object-cover hover:shadow-md hover:ring-4 hover:ring-blue-200 transition-all duration-300"
-      alt="profile"
-    />
-  ) : (
-    <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
-  {user?.name?.charAt(0).toUpperCase()}
-</div>
-  )}
-            
+              {user?.avatar?.url ? (
+                <img
+                  src={user.avatar.url}
+                   className="
+                  w-9 h-9 rounded-full object-cover
+                  border border-white/30
+                  hover:ring-2 hover:ring-cyan-300
+                  transition
+                  "
+                  alt="profile"
+                />
+              ) : (
+                <div className="w-9 h-9 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                  {user?.name?.charAt(0).toUpperCase()}
+                </div>
+              )}
             </Link>
           ) : (
             <Link to="/login">
@@ -120,18 +124,22 @@ const Header = ({ activeHeading }) => {
             {/* Profile / Login */}
             {isAuthenticated ? (
               <Link to="/profile">
-               {user?.avatar?.url || "/images/default-avatar.png" ? (
+                {user?.avatar?.url ? (
                   <img
-                    src={user?.avatar?.url || "/images/default-avatar.png"}
-                    className="w-12 h-12 rounded-2xl border-2 border-blue-500 object-cover hover:shadow-md hover:ring-4 hover:ring-blue-200 transition-all duration-300"
+                    src={user.avatar.url}
+                    className="
+                  w-9 h-9 rounded-full object-cover
+                  border border-white/30
+                  hover:ring-2 hover:ring-cyan-300
+                  transition
+                  "
                     alt="profile"
                   />
                 ) : (
-                  <div className="w-12 h-12 rounded-2xl bg-blue-500 flex items-center justify-center text-white font-bold text-lg border-2 border-blue-500 hover:shadow-md hover:ring-4 hover:ring-blue-200 transition-all duration-300">
+                  <div className="w-9 h-9 rounded-2xl bg-blue-500 flex items-center justify-center text-white font-bold text-lg border-2 border-blue-500 hover:shadow-md hover:ring-4 hover:ring-blue-200 transition-all duration-300">
                     {user?.name?.charAt(0).toUpperCase()}
                   </div>
                 )}
-                
               </Link>
             ) : (
               <Link
