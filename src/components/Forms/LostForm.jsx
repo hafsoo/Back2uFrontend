@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { createLostItem, clearMessage } from "../../redux/actions/lostItem"; // Your Redux action
+import {
+  createLostItem,
+  clearMessage,
+  clearErrors,
+} from "../../redux/actions/lostItem"; // Your Redux action
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import MatchPopup from "../Matching/MatchPopup";
@@ -27,7 +31,7 @@ const LostForm = () => {
     possibleMatches = [],
   } = useSelector((state) => state.lostItem);
 
-  const [showPopup, setShowPopup] = useState(false); 
+  const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({
     itemName: "",
     category: "",
@@ -41,26 +45,29 @@ const LostForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
-  { label: "Input", icon: FileText },
-  { label: "Normalize", icon: Braces },
-  { label: "Tags", icon: Tag },
-  { label: "Embed", icon: Cpu },
-  { label: "Save", icon: Save },
-  { label: "Match", icon: Search },
-  { label: "Score", icon: BarChart3 },
-  { label: "Result", icon: CheckCircle },
-];
+    { label: "Input", icon: FileText },
+    { label: "Normalize", icon: Braces },
+    { label: "Tags", icon: Tag },
+    { label: "Embed", icon: Cpu },
+    { label: "Save", icon: Save },
+    { label: "Match", icon: Search },
+    { label: "Score", icon: BarChart3 },
+    { label: "Result", icon: CheckCircle },
+  ];
 
   const handleClosePopup = () => {
     setShowPopup(false); // hide popup
-    dispatch(clearMessage()); // optional: clear matches from Redux
+    dispatch(clearErrors());
+    dispatch(clearMessage()); // ✅ ab yahan clear karo — popup close hone ke baad
     navigate("/");
   };
 
-  
   // Handle toast notifications
   useEffect(() => {
-    if (error) toast.error(error);
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors()); // ← error clear karo
+    }
     if (success) {
       toast.success("Lost item report submitted successfully!");
       //navigate("/");
@@ -74,13 +81,13 @@ const LostForm = () => {
         description: "",
         images: [],
       });
-      
+      setCurrentStep(0); // ✅ pipeline bhi reset karo
       //setTimeout(() => {
-        setShowPopup(true);
+      setShowPopup(true);
       //}, 400);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, success]);
-  
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -140,95 +147,83 @@ const LostForm = () => {
 
     // Small delay before popup
     //setTimeout(() => {
-      //setShowPopup(true);
+    //setShowPopup(true);
     //}, 600);
   };
- 
-const ProcessingPipeline = ({ currentStep, isProcessing }) => {
-  return (
-    <div className="mt-12 w-full bg-gray-50 border border-gray-200 rounded-2xl p-3">
-      
-      {/* Heading */}
-      <h4 className="text-sm font-semibold text-gray-700 tracking-wide mb-8">
-        Processing Pipeline
-      </h4>
 
-      {/* Icons Row */}
-      <div className="flex items-center justify-between w-full">
+  const ProcessingPipeline = ({ currentStep, isProcessing }) => {
+    return (
+      <div className="mt-12 w-full bg-gray-50 border border-gray-200 rounded-2xl p-3">
+        {/* Heading */}
+        <h4 className="text-sm font-semibold text-gray-700 tracking-wide mb-8">
+          Processing Pipeline
+        </h4>
 
-        {steps.map((step, index) => {
-          const Icon = step.icon;
-          const isCompleted = index < currentStep;
-          const isActive = index === currentStep && isProcessing;
+        {/* Icons Row */}
+        <div className="flex items-center justify-between w-full">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            const isCompleted = index < currentStep;
+            const isActive = index === currentStep && isProcessing;
 
-          return (
-            <div key={index} className="flex items-center">
-
-              {/* Step */}
-              <div className="flex flex-col items-center">
-
-                {/* Circle Icon */}
-                <div
-                  className={`h-14 w-14 flex items-center justify-center rounded-full border-2 transition-all duration-500
+            return (
+              <div key={index} className="flex items-center">
+                {/* Step */}
+                <div className="flex flex-col items-center">
+                  {/* Circle Icon */}
+                  <div
+                    className={`h-14 w-14 flex items-center justify-center rounded-full border-2 transition-all duration-500
                     ${
                       isCompleted
                         ? "bg-green-500 border-green-500 text-white shadow-md shadow-green-500/30"
                         : isActive
-                        ? "bg-blue-100 border-blue-500 text-blue-600 animate-pulse"
-                        : "bg-white border-gray-300 text-gray-400"
+                          ? "bg-blue-100 border-blue-500 text-blue-600 animate-pulse"
+                          : "bg-white border-gray-300 text-gray-400"
                     }
                   `}
-                >
-                  {isCompleted ? (
-                    <Check size={22} />
-                  ) : (
-                    <Icon size={22} />
-                  )}
-                </div>
+                  >
+                    {isCompleted ? <Check size={22} /> : <Icon size={22} />}
+                  </div>
 
-                {/* Label Below Icon */}
-                <span
-                  className={`mt-3 text-xs font-medium transition-all duration-300
+                  {/* Label Below Icon */}
+                  <span
+                    className={`mt-3 text-xs font-medium transition-all duration-300
                     ${
                       isCompleted
                         ? "text-green-600"
                         : isActive
-                        ? "text-blue-600"
-                        : "text-gray-500"
+                          ? "text-blue-600"
+                          : "text-gray-500"
                     }
                   `}
-                >
-                  {step.label}
-                </span>
+                  >
+                    {step.label}
+                  </span>
+                </div>
+
+                {/* Arrow Between Icons */}
+                {index !== steps.length - 1 && (
+                  <ArrowRight
+                    size={18}
+                    className={`mx-4 transition-all duration-500
+                    ${index < currentStep ? "text-green-500" : "text-gray-300"}
+                  `}
+                  />
+                )}
               </div>
-
-              {/* Arrow Between Icons */}
-              {index !== steps.length - 1 && (
-                <ArrowRight
-                  size={18}
-                  className={`mx-4 transition-all duration-500
-                    ${
-                      index < currentStep
-                        ? "text-green-500"
-                        : "text-gray-300"
-                    }
-                  `}
-                />
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Processing Text */}
-      {isProcessing && (
-        <div className="mt-8 text-center text-blue-600 font-medium animate-pulse">
-          ⚙ Processing — {steps[currentStep]?.label}
+            );
+          })}
         </div>
-      )}
-    </div>
-  );
-};
+
+        {/* Processing Text */}
+        {isProcessing && (
+          <div className="mt-8 text-center text-blue-600 font-medium animate-pulse">
+            ⚙ Processing — {steps[currentStep]?.label}
+          </div>
+        )}
+      </div>
+    );
+  };
   return (
     <div
       className="bg-white shadow-xl rounded-3xl p-10 w-full max-w-4xl mx-auto"
@@ -397,12 +392,12 @@ const ProcessingPipeline = ({ currentStep, isProcessing }) => {
             ))}
           </div>
         </div>
-       <div className="hidden md:block">
-  <ProcessingPipeline
-    currentStep={currentStep}
-    isProcessing={isProcessing}
-  />
-</div>
+        <div className="hidden md:block">
+          <ProcessingPipeline
+            currentStep={currentStep}
+            isProcessing={isProcessing}
+          />
+        </div>
         {/* Submit Button */}
         <div className="text-center">
           <button
@@ -423,7 +418,7 @@ const ProcessingPipeline = ({ currentStep, isProcessing }) => {
 
       {/* Matching Popup */}
       {showPopup && (
-       <MatchPopup matches={possibleMatches} onClose={handleClosePopup} />
+        <MatchPopup matches={possibleMatches} onClose={handleClosePopup} />
       )}
     </div>
   );

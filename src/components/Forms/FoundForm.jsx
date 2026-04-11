@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { createFoundItem, clearMessage } from "../../redux/actions/foundItem"; // Redux action
+import { createFoundItem, clearMessage,clearErrors } from "../../redux/actions/foundItem"; // Redux action
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import MatchPopup from "../Matching/MatchPopup";
@@ -59,7 +59,10 @@ const FoundForm = () => {
 
   // Toast notifications
   useEffect(() => {
-    if (error) toast.error(error);
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors()); // ← error clear karo
+    }
     if (success) {
       toast.success("Found item report submitted successfully!");
       // navigate("/");
@@ -73,11 +76,12 @@ const FoundForm = () => {
         description: "",
         images: [],
       });
-
+      setCurrentStep(0); // ✅ pipeline reset
       //setTimeout(() => {
-        setShowPopup(true);
+      setShowPopup(true);
       //}, 400);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, success]);
 
   const handleChange = (e) => {
@@ -138,7 +142,7 @@ const FoundForm = () => {
 
     // Small delay before popup
     //setTimeout(() => {
-      //setShowPopup(true);
+    //setShowPopup(true);
     //}, 600);
   };
 
@@ -392,7 +396,6 @@ const FoundForm = () => {
         </div>
         {/* Submit Button */}
         <div className="text-center">
-          
           <button
             type="submit"
             disabled={isProcessing}

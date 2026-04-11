@@ -6,7 +6,7 @@ const initialState = {
   error: null,
   foundItems: [],
   message: null,
-   possibleMatches: [], // <--- store matches
+  possibleMatches: [], // <--- store matches
 };
 
 export const foundItemReducer = createReducer(initialState, (builder) => {
@@ -14,8 +14,8 @@ export const foundItemReducer = createReducer(initialState, (builder) => {
     // 🟢 Create Found Item
     .addCase("foundItemCreateRequest", (state) => {
       state.isLoading = true;
-      state.error = null;//1
-      state.success = false;//2
+      state.error = null; //1
+      state.success = false; //2
       state.possibleMatches = []; // reset matches
     })
     .addCase("foundItemCreateSuccess", (state, action) => {
@@ -29,7 +29,7 @@ export const foundItemReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
       state.error = action.payload;
       state.success = false;
-          state.possibleMatches = []; // reset matches
+      state.possibleMatches = []; // reset matches
     })
 
     // 🟡 Get All Found Items
@@ -53,7 +53,7 @@ export const foundItemReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
       state.message = action.payload;
       state.foundItems = state.foundItems.filter(
-        (item) => item._id !== action.payload._id
+        (item) => item._id !== action.payload._id,
       );
     })
     .addCase("deleteFoundItemFail", (state, action) => {
@@ -80,9 +80,9 @@ export const foundItemReducer = createReducer(initialState, (builder) => {
     })
     .addCase("clearMessage", (state) => {
       state.message = null;
+      state.success = false; // ✅ yeh line add karo
     })
     .addCase("clearPossibleMatches", (state) => {
-  state.possibleMatches = [];
-});
-
+      state.possibleMatches = [];
+    });
 });

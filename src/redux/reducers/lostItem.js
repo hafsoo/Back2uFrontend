@@ -6,7 +6,7 @@ const initialState = {
   error: null,
   lostItems: [],
   message: null,
-   possibleMatches: [], // <--- store matches
+  possibleMatches: [], // <--- store matches
 };
 
 export const lostItemReducer = createReducer(initialState, (builder) => {
@@ -14,14 +14,14 @@ export const lostItemReducer = createReducer(initialState, (builder) => {
     // 🟢 Create Lost Item
     .addCase("lostItemCreateRequest", (state) => {
       state.isLoading = true;
-       state.error = null;//1
-      state.success = false;//2
-      state.possibleMatches = [];//3
+      state.error = null; //1
+      state.success = false; //2
+      state.possibleMatches = []; //3
     })
     .addCase("lostItemCreateSuccess", (state, action) => {
       state.isLoading = false;
       //state.lostItems.push(action.payload);
-       state.lostItems.push(action.payload.lostItem); // store the created item
+      state.lostItems.push(action.payload.lostItem); // store the created item
       state.possibleMatches = action.payload.possibleMatches || []; // store matches
       state.success = true;
     })
@@ -29,7 +29,7 @@ export const lostItemReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
       state.error = action.payload;
       state.success = false;
-      state.possibleMatches = [];//4
+      state.possibleMatches = []; //4
     })
 
     // 🟡 Get All Lost Items
@@ -53,7 +53,7 @@ export const lostItemReducer = createReducer(initialState, (builder) => {
       state.isLoading = false;
       state.message = action.payload;
       state.lostItems = state.lostItems.filter(
-        (item) => item._id !== action.payload._id
+        (item) => item._id !== action.payload._id,
       );
     })
     .addCase("deleteLostItemFail", (state, action) => {
@@ -80,9 +80,9 @@ export const lostItemReducer = createReducer(initialState, (builder) => {
     })
     .addCase("clearMessage", (state) => {
       state.message = null;
+      state.success = false; // ✅ yeh line add karo
     })
     .addCase("clearPossibleMatches", (state) => {
-  state.possibleMatches = [];
-});
-
+      state.possibleMatches = [];
+    });
 });
