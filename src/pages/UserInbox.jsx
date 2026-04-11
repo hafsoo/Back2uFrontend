@@ -584,11 +584,11 @@ const UserInbox = () => {
 
           <div className="b2u-sidebar-top">
             <div className="b2u-logo">
-              <img
+              {/*<img
                 src="/images/my.png"
                 alt="logo"
                 style={{ width: 50, height: 45 }}
-              />
+              />*/}
               <Link to={"/"}>
                 <span className="b2u-logo-text">
                   Back<span>2U</span> Chat
