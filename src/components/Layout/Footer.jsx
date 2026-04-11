@@ -27,22 +27,27 @@ const Footer = () => {
       <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 px-6 md:px-20 py-20">
         {/* Logo + About */}
         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-          <div className="flex items-center gap-3 mb-3">
-            {/* Icon */}
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-cyan-400/10 border border-cyan-400/20">
-              <img
-                src="/images/radar.png"
-                alt="Back2U Logo"
-                className="w-6 h-6 object-contain"
-              />
-            </div>
+          
+          <Link to="/" className="group flex items-center gap-3 mb-4">
+    {/* Icon */}
+    <div className="w-[62px] h-[62px] rounded-[12px] border border-cyan-400/40 flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:border-cyan-400/70">
+      <img
+        src="/images/my.png"
+        alt="Back2U Logo"
+        className="w-full h-full object-contain scale-110"
+      />
+       </div>
 
-            {/* Text */}
-            <h1 className="text-2xl font-bold tracking-wide text-white">
-              Back<span className="text-cyan-400">2U</span>
-            </h1>
-          </div>
-
+    {/* Text */}
+    <div className="flex flex-col leading-tight">
+      <span className="text-xl font-extrabold tracking-wide text-white">
+        BACK<span className="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]">2U</span>
+      </span>
+      <span className="text-[8px] text-gray-400 tracking-[0.3em] uppercase">
+        Lost &amp; Found System
+      </span>
+    </div>
+  </Link>
           <p className="text-sm leading-relaxed text-gray-400 max-w-xs">
             AI-powered lost & found platform for university campuses. Never lose
             anything again.{" "}

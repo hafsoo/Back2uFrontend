@@ -35,16 +35,23 @@ const Header = ({ activeHeading }) => {
             <BiMenuAltLeft size={28} />
           </button>
 
-          <Link to="/" className="flex items-center gap-1">
-            <img
-              src="/images/radar.png"
-              alt="Back2U Logo"
-              className="w-6 h-6 object-contain"
-            />
-            <span className="font-semibold">
-              Back<span className="text-cyan-400">2U</span>
-            </span>
-          </Link>
+           <Link to="/" className="flex items-center gap-1">
+    <div className="w-[38px] h-[38px] rounded-[10px] border border-cyan-400/40 flex items-center justify-center overflow-hidden">
+      <img
+        src="/images/my.png"
+        alt="Back2U Logo"
+        className="w-full h-full object-contain scale-110"
+      />
+    </div>
+    <div className="flex flex-col leading-tight">
+      <span className="text-sm font-extrabold text-white tracking-wide">
+        BACK<span className="text-cyan-400">2U</span>
+      </span>
+      <span className="text-[7px] text-gray-400 tracking-[0.25em] uppercase">
+        Lost &amp; Found
+      </span>
+    </div>
+  </Link>
 
           {isAuthenticated ? (
             <Link to="/profile">
@@ -82,20 +89,29 @@ const Header = ({ activeHeading }) => {
           text-white
         "
         >
-          {/* LEFT: LOGO */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-cyan-400/20 bg-cyan-400/10">
-              <img
-                src="/images/radar.png"
-                alt="Back2U Logo"
-                className="w-7 h-7 object-contain"
-              />
-            </div>
+         <Link to="/" className="group flex items-center gap-2">
+  {/* Logo with thin cyan border */}
+  <div className="w-[74px] h-[74px] rounded-[14px] border border-cyan-400/40 flex items-center justify-center transition-all duration-300 group-hover:border-cyan-400/70 overflow-hidden">
+    <img
+      src="/images/my.png"
+      alt="Back2U Logo"
+      className="w-full h-full object-contain scale-110"
+    />
+  </div>
 
-            <span className="text-2xl font-bold tracking-wide">
-              Back<span className="text-cyan-400">2U</span>
-            </span>
-          </Link>
+  {/* Text */}
+  <div className="flex flex-col leading-tight">
+    <span className="text-2xl font-extrabold tracking-wide text-white">
+      BACK
+      <span className="text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]">
+        2U
+      </span>
+    </span>
+    <span className="text-[9px] text-gray-400 tracking-[0.35em] uppercase">
+      Lost &amp; Found System
+    </span>
+  </div>
+</Link>
 
           {/* CENTER: NAV LINKS */}
           <div className="flex items-center gap-10 text-sm">
