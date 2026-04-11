@@ -162,7 +162,7 @@ const Header = ({ activeHeading }) => {
                 to="/login"
                 className="text-gray-300 hover:text-white text-sm transition"
               >
-                <CgProfile size={32} className="text-gray-700" />
+                <CgProfile size={32}/>
               </Link>
             )}
           </div>
