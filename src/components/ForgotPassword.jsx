@@ -24,14 +24,20 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#0a0a0f]">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-blue-600 rounded-full opacity-10 blur-[120px] animate-pulse" />
-        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-indigo-500 rounded-full opacity-10 blur-[120px] animate-pulse" />
-      </div>
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden"
+     style={{
+    backgroundImage: `url("/images/uni.png")`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }}>
+      
+{/* Background Overlay - Isay halka rakha hai taake building nazar aaye */}
+      <div className="absolute inset-0 bg-black/30"></div>
 
       <div className="relative z-10 w-full max-w-md mx-4">
-        <div className="relative bg-white/[0.04] backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-[0_32px_64px_rgba(0,0,0,0.4)]">
+
+        <div className="relative backdrop-blur-[5px] bg-white/[0.01] border-[1.5px] border-white/20 rounded-[40px] p-8 shadow-2xl">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent rounded-t-3xl" />
 
           {/* Header */}
@@ -48,7 +54,7 @@ const ForgotPassword = () => {
             <div className="h-10 w-px bg-white/10 mx-1 shrink-0" />
             <div>
               <p className="text-white font-semibold text-sm leading-tight">Forgot Password</p>
-              <p className="text-zinc-500 text-[11px] leading-tight mt-0.5">We'll send a reset link</p>
+              <p className="text-gray-400 text-[11px] leading-tight mt-0.5">We'll send a reset link</p>
             </div>
           </div>
 
@@ -61,7 +67,7 @@ const ForgotPassword = () => {
                 </svg>
               </div>
               <p className="text-white font-semibold mb-1">Check your email!</p>
-              <p className="text-zinc-400 text-sm mb-6">Reset link sent to <span className="text-cyan-400">{email}</span></p>
+              <p className="text-white text-sm mb-6">Reset link sent to <span className="text-cyan-400">{email}</span></p>
               <Link to="/login" className="text-blue-400 text-sm font-semibold hover:text-cyan-400 transition-colors">
                 ← Back to Login
               </Link>
@@ -69,7 +75,7 @@ const ForgotPassword = () => {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="group">
-                <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-white uppercase tracking-wider mb-2">
                   Email Address
                 </label>
                 <div className="relative">
@@ -84,7 +90,7 @@ const ForgotPassword = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full bg-white/5 border border-white/10 text-white placeholder-zinc-600 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all duration-200"
+                    className="w-full bg-transparent border border-white/30 text-white placeholder-gray-400 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-cyan-400/60 transition-all duration-200"
                   />
                 </div>
               </div>
@@ -110,7 +116,7 @@ const ForgotPassword = () => {
               </button>
 
               <div className="text-center pt-1">
-                <Link to="/login" className="text-zinc-500 text-sm hover:text-zinc-300 transition-colors">
+                <Link to="/login" className="text-white text-sm hover:text-cyan-500 transition-colors">
                   ← Back to Login
                 </Link>
               </div>

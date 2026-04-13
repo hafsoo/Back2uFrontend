@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
@@ -38,54 +39,29 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#0a0a0f]">
-      {/* Animated background blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-blue-600 rounded-full opacity-10 blur-[120px] animate-pulse" />
-        <div
-          className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-indigo-500 rounded-full opacity-10 blur-[120px] animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-cyan-500 rounded-full opacity-5 blur-[100px] animate-pulse"
-          style={{ animationDelay: "2s" }}
-        />
-        {/* Grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
-
-      {/* Floating particles */}
-      {[...Array(6)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-40 animate-bounce"
-          style={{
-            left: `${15 + i * 14}%`,
-            top: `${20 + (i % 3) * 25}%`,
-            animationDelay: `${i * 0.4}s`,
-            animationDuration: `${2 + i * 0.5}s`,
-          }}
-        />
-      ))}
+    <div
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      style={{
+        backgroundImage: `url("/images/uni.png")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+    {/* Background Overlay - Isay halka rakha hai taake building nazar aaye */}
+      <div className="absolute inset-0 bg-black/30"></div>
 
       <div className="relative z-10 w-full max-w-md mx-4">
         {/* Logo / Brand */}
 
         {/* Card */}
-        <div className="relative bg-white/[0.04] backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-[0_32px_64px_rgba(0,0,0,0.4)]">
+        <div className="relative bg-white/[0.01] backdrop-blur-[3px] border-[1.5px] border-white/20 rounded-[40px] p-8 shadow-2xl">
           {/* Inner glow top border */}
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent rounded-t-3xl" />
           {/* ── HEADER: logo | brand text | divider | page label ── */}
           <div className="flex items-center gap-3 mb-5">
             {/* Logo image box */}
-            <div className="w-[52px] h-[52px] rounded-[12px] border border-cyan-400/40 flex items-center justify-center overflow-hidden shrink-0 bg-white/[0.04] hover:border-cyan-400/70 transition-all duration-300">
+            <div className="w-[52px] h-[52px] rounded-[12px] border border-cyan-400/40 flex items-center justify-center overflow-hidden shrink-0 bg-white/[0.01] hover:border-cyan-400/70 transition-all duration-300">
               <img
                 src="/images/my.png"
                 alt="Back2U Logo"
@@ -114,7 +90,7 @@ const Login = () => {
               <p className="text-white font-semibold text-sm leading-tight">
                 Welcome Back
               </p>
-              <p className="text-zinc-500 text-[11px] leading-tight mt-0.5">
+              <p className="text-gray-400 text-[11px] leading-tight mt-0.5">
                 Sign in to continue your search
               </p>
             </div>
@@ -123,7 +99,7 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div className="group">
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+              <label className="block text-[10px] font-bold text-white uppercase tracking-wider mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -148,14 +124,14 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-zinc-600 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-blue-500/60 focus:bg-white/8 focus:ring-1 focus:ring-blue-500/30 transition-all duration-200"
+                  className="w-full bg-transparent border border-white/30 text-white placeholder-gray-400 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-cyan-400/60  transition-all duration-200"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div className="group">
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-white uppercase tracking-wider mb-2">
                 Password
               </label>
               <div className="relative">
@@ -180,11 +156,11 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••"
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-zinc-600 rounded-xl pl-11 pr-12 py-3 text-sm focus:outline-none focus:border-blue-500/60 focus:bg-white/8 focus:ring-1 focus:ring-blue-500/30 transition-all duration-200"
+                  className="w-full bg-transparent border border-white/30 text-white placeholder-gray-400 rounded-xl pl-11 pr-12 py-3 text-sm focus:outline-none focus:border-cyan-400/60  transition-all duration-200"
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-zinc-500 hover:text-blue-400 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-white hover:text-blue-400 transition-colors"
                   onClick={() => setVisible(!visible)}
                 >
                   {visible ? (
@@ -216,11 +192,11 @@ const Login = () => {
                     />
                   </svg>
                 </div>
-                <span className="text-xs text-zinc-400">Remember me</span>
+                <span className="text-xs text-white">Remember me</span>
               </label>
               <Link
                 to="/forgot-password"
-                className="text-xs  text-zinc-400 hover:text-blue-400 transition-colors"
+                className="text-xs  text-white hover:text-blue-400 transition-colors"
               >
                 Forgot password?
               </Link>
@@ -285,7 +261,7 @@ const Login = () => {
 
           {/* Footer */}
           <div className="mt-6 pt-6 border-t border-white/[0.06] text-center">
-            <p className="text-zinc-500 text-sm">
+            <p className="text-white text-sm">
               Don't have an account?{" "}
               <Link
                 to="/signup"
@@ -298,7 +274,7 @@ const Login = () => {
         </div>
 
         {/* Bottom text */}
-        <p className="text-center text-zinc-700 text-xs mt-6">
+        <p className="text-center text-white text-xs mt-6">
           © 2024 Back2U · University Lost & Found
         </p>
       </div>
@@ -307,6 +283,7 @@ const Login = () => {
 };
 
 export default Login;
+
 
 /*
 import React, { useState } from "react";

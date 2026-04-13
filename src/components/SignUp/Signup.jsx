@@ -58,44 +58,23 @@ const Signup = () => {
   const strengthColors = ["", "bg-red-500", "bg-yellow-500", "bg-blue-400", "bg-emerald-400"];
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#0a0a0f] py-10">
-      {/* Animated background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-60 -right-40 w-[700px] h-[700px] bg-indigo-600 rounded-full opacity-10 blur-[130px] animate-pulse" />
-        <div className="absolute -bottom-60 -left-40 w-[600px] h-[600px] bg-blue-500 rounded-full opacity-10 blur-[120px] animate-pulse" style={{ animationDelay: "1.5s" }} />
-        <div className="absolute top-1/3 left-1/3 w-[300px] h-[300px] bg-cyan-500 rounded-full opacity-5 blur-[100px] animate-pulse" style={{ animationDelay: "0.7s" }} />
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden py-10"  style={{
+    backgroundImage: `url("/images/uni.png")`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }}>
+    {/* Background Overlay - Isay halka rakha hai taake building nazar aaye */}
+      <div className="absolute inset-0 bg-black/30"></div>
 
-      {/* Floating dots */}
-      {[...Array(8)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full opacity-30 animate-bounce"
-          style={{
-            width: i % 2 === 0 ? "6px" : "4px",
-            height: i % 2 === 0 ? "6px" : "4px",
-            background: i % 3 === 0 ? "#60a5fa" : i % 3 === 1 ? "#22d3ee" : "#818cf8",
-            left: `${10 + i * 11}%`,
-            top: `${15 + (i % 4) * 20}%`,
-            animationDelay: `${i * 0.3}s`,
-            animationDuration: `${2.5 + i * 0.4}s`,
-          }}
-        />
-      ))}
+     
 
       <div className="relative z-10 w-full max-w-md mx-4">
        
 
         {/* Card */}
-        <div className="relative bg-white/[0.04] backdrop-blur-2xl border border-white/10 rounded-3xl p-8 shadow-[0_32px_64px_rgba(0,0,0,0.4)]">
+        {/* bg-white/[0.01] aur backdrop-blur-sm se bilkul pehli image jaisa transparency aayega */}
+        <div className="relative bg-white/[0.01] backdrop-blur-[3px] border-[1.5px] border-white/20 rounded-[40px] p-8 shadow-2xl">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent rounded-t-3xl" />
 
            {/* ── HEADER: logo | brand text | divider | page label ── */}
@@ -129,7 +108,7 @@ const Signup = () => {
             {/* Page label */}
             <div>
               <p className="text-white font-semibold text-sm leading-tight">Create Account</p>
-              <p className="text-zinc-500 text-[11px] leading-tight mt-0.5">Help reunite lost items</p>
+              <p className="text-gray-400 text-[11px] leading-tight mt-0.5">Help reunite lost items</p>
             </div>
           </div>
 
@@ -149,7 +128,7 @@ const Signup = () => {
                 )}
               </div>
               <div className="flex-1">
-                <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1.5">Profile Photo</p>
+                <p className="text-xs font-semibold text-white uppercase tracking-wider mb-1.5">Profile Photo</p>
                 <label
                   htmlFor="file-input"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-xs font-medium text-zinc-300 hover:bg-white/10 hover:border-white/20 cursor-pointer transition-all duration-200"
@@ -166,13 +145,13 @@ const Signup = () => {
                     className="sr-only"
                   />
                 </label>
-                <p className="text-zinc-600 text-[10px] mt-1">JPG, PNG · optional</p>
+                <p className="text-gray-400 text-[10px] mt-1">JPG, PNG · optional</p>
               </div>
             </div>
 
             {/* Full Name */}
             <div className="group">
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-white uppercase tracking-wider mb-2">
                 Full Name
               </label>
               <div className="relative">
@@ -188,14 +167,14 @@ const Signup = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="John Doe"
                   autoComplete="name"
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-zinc-600 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-white/8 focus:ring-1 focus:ring-indigo-500/30 transition-all duration-200"
+                  className="w-full bg-transparent border border-white/30 text-white placeholder-gray-400 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-cyan-400/60 transition-all duration-200"
                 />
               </div>
             </div>
 
             {/* Email */}
             <div className="group">
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-white uppercase tracking-wider mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -211,14 +190,15 @@ const Signup = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   autoComplete="email"
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-zinc-600 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-white/8 focus:ring-1 focus:ring-indigo-500/30 transition-all duration-200"
+                   className="w-full bg-transparent border border-white/30 text-white placeholder-gray-400 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-cyan-400/60 transition-all duration-200"
+                  //className="w-full bg-white/5 border border-white/10 text-white placeholder-zinc-600 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-white/8 focus:ring-1 focus:ring-indigo-500/30 transition-all duration-200"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div className="group">
-              <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-semibold text-white uppercase tracking-wider mb-2">
                 Password
               </label>
               <div className="relative">
@@ -234,11 +214,12 @@ const Signup = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Min. 8 characters"
                   autoComplete="new-password"
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-zinc-600 rounded-xl pl-11 pr-12 py-3 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-white/8 focus:ring-1 focus:ring-indigo-500/30 transition-all duration-200"
+                   className="w-full bg-transparent border border-white/30 text-white placeholder-gray-400 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-cyan-400/60 transition-all duration-200"
+                  //className="w-full bg-white/5 border border-white/10 text-white placeholder-zinc-600 rounded-xl pl-11 pr-12 py-3 text-sm focus:outline-none focus:border-indigo-500/60 focus:bg-white/8 focus:ring-1 focus:ring-indigo-500/30 transition-all duration-200"
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-zinc-500 hover:text-indigo-400 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-white hover:text-indigo-400 transition-colors"
                   onClick={() => setVisible(!visible)}
                 >
                   {visible ? <AiOutlineEye size={18} /> : <AiOutlineEyeInvisible size={18} />}
@@ -303,7 +284,7 @@ const Signup = () => {
 
           {/* Footer */}
           <div className="mt-6 pt-6 border-t border-white/[0.06] text-center">
-            <p className="text-zinc-500 text-sm">
+            <p className="text-white text-sm">
               Already have an account?{" "}
               <Link to="/login" className="text-indigo-400 font-semibold hover:text-cyan-400 transition-colors">
                 Sign in →
@@ -312,7 +293,7 @@ const Signup = () => {
           </div>
         </div>
 
-        <p className="text-center text-zinc-700 text-xs mt-6">
+        <p className="text-center text-white text-xs mt-6">
           © 2024 Back2U · University Lost & Found
         </p>
       </div>
@@ -321,6 +302,7 @@ const Signup = () => {
 };
 
 export default Signup;
+
 
 
 /*
