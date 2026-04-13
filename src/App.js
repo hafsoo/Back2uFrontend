@@ -14,6 +14,8 @@ import {
   BrowseItems,
   UserInbox,
   MatchesPage,
+  ForgotPassword,
+  ResetPassword,
 } from "./routes/Routes.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -119,7 +121,7 @@ function App() {
           }
         />
         <Route
-           path="/admin/claim/:id"
+          path="/admin/claim/:id"
           element={
             <ProtectedAdminRoute>
               <AdminClaimDetails />
@@ -134,7 +136,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-       
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
 
       <ToastContainer

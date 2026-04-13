@@ -11,6 +11,8 @@ import LostFoundDetailPage from "../pages/LostFoundDetailPage.jsx"
 import BrowseItems from "../pages/BrowseItems.jsx";
 import UserInbox from './../pages/UserInbox';
 import MatchesPage from './../pages/MatchesPage';
+import ForgotPassword from './../components/ForgotPassword';
+import ResetPassword from './../components/ResetPassword';
 export{
  LoginPage,
  SignupPage,
@@ -24,6 +26,8 @@ export{
 LostFoundDetailPage,
 BrowseItems,
 UserInbox,
-MatchesPage
+MatchesPage,
+ForgotPassword,
+ResetPassword
 
 }
