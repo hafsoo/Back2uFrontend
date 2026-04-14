@@ -125,7 +125,7 @@ const Header = ({ activeHeading }) => {
               to="/browse"
               className="
               bg-cyan-400
-              text-black
+              text-white
               px-5 py-2
               rounded-xl
               font-semibold
@@ -192,7 +192,7 @@ const Header = ({ activeHeading }) => {
 
             <Link
               to="/browse"
-              className="block mt-6 py-2 rounded-xl bg-cyan-400 text-black text-center font-semibold"
+              className="block mt-6 py-2 rounded-xl bg-cyan-400 text-white text-center font-semibold"
             >
               Browse Items
             </Link>
