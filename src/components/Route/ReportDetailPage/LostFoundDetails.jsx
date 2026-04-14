@@ -146,20 +146,13 @@ const LostFoundDetails = ({ data }) => {
 
           {/* ACTION BUTTONS */}
           <div className="mt-6 flex flex-col gap-3">
-            {/* ACTION BUTTONS 
-           <button
-              onClick={() => setOpenClaim(true)}
-              className="bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
-            >
-              Claim This Item
-            </button>
-            */}
+            
 
             {/* Only show claim button for Found items */}
             {data.type === "FoundItem" && data.status === "found" && (
               <button
                 onClick={() => setOpenClaim(true)}
-                className="bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
+                className="bg-cyan-500 text-white py-3 rounded-lg hover:bg-cyan-400"
               >
                 Claim This Item
               </button>
