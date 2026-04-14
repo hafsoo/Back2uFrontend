@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ClaimCard from "../Claim/ClaimCard";
 import { getMyClaims } from "../../redux/actions/claim";
-import { FiPlus } from "react-icons/fi"
+import { FiPlus } from "react-icons/fi";
 
 const TABS = [
   { key: "all", label: "All Claims" },
@@ -19,13 +19,19 @@ const MyClaims = () => {
   const [activeTab, setActiveTab] = useState("all");
 
   useEffect(() => {
-  // dispatch your action to load user's claims
+    // dispatch your action to load user's claims
     dispatch(getMyClaims());
   }, [dispatch]);
 
   // counts for each tab
   const counts = useMemo(() => {
-    const c = { all: claims.length, pending: 0, awaiting_admin: 0, approved: 0, rejected: 0 };
+    const c = {
+      all: claims.length,
+      pending: 0,
+      awaiting_admin: 0,
+      approved: 0,
+      rejected: 0,
+    };
     claims.forEach((cl) => {
       const s = cl.status;
       if (s === "pending") c.pending++;
@@ -53,12 +59,19 @@ const MyClaims = () => {
             </span>
             My Claims
           </h1>
-          <p className="text-sm text-gray-500 mt-1">Track the status of your item claims</p>
+          <p className="text-sm text-gray-500 mt-1">
+            Track the status of your item claims
+          </p>
         </div>
 
         <div>
           <button
-            className="hidden lg:inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow"
+            className="hidden lg:inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500
+       font-semibold
+      shadow-lg
+      hover:scale-105
+      transition duration-300 text-white px-4 py-2 rounded-lg "
+            //className="hidden lg:inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow"
             onClick={() => {
               window.location.href = "/found-reports";
             }}
@@ -84,7 +97,7 @@ const MyClaims = () => {
             >
               <span>{t.label}</span>
               <span className="text-xs bg-gray-100 px-2 py-1 rounded-full text-gray-700">
-                {t.key === "all" ? counts.all : counts[t.key] ?? 0}
+                {t.key === "all" ? counts.all : (counts[t.key] ?? 0)}
               </span>
             </button>
           ))}
@@ -93,7 +106,11 @@ const MyClaims = () => {
 
       {/* List */}
       <div className="space-y-4">
-        {loading && <div className="p-6 bg-white rounded shadow text-center">Loading claims...</div>}
+        {loading && (
+          <div className="p-6 bg-white rounded shadow text-center">
+            Loading claims...
+          </div>
+        )}
 
         {!loading && filtered.length === 0 && (
           <div className="p-6 bg-white rounded shadow text-center text-gray-600">
@@ -102,9 +119,7 @@ const MyClaims = () => {
         )}
 
         {!loading &&
-          filtered.map((claim) => (
-            <ClaimCard key={claim._id} claim={claim} />
-          ))}
+          filtered.map((claim) => <ClaimCard key={claim._id} claim={claim} />)}
       </div>
     </div>
   );
