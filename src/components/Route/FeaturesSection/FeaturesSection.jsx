@@ -92,7 +92,7 @@ const FeaturesSection = () => {
           className="text-[36px] md:text-[56px] font-extrabold leading-tight text-[#111827]"
         >
           Powerful Features for
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0284c7] to-[#f97316]">
+          <span className="text-transparent bg-clip-text bg-[#00BFFF]">
             {" "} Easy Recovery
           </span>
         </h2>
@@ -100,7 +100,7 @@ const FeaturesSection = () => {
           Back2U simplifies the lost and found process with AI matching, verified
           claims, and secure communication tools.
         </p>
-        <div className="h-1 w-24 mx-auto my-4 rounded-full bg-gradient-to-r from-[#0284c7] to-[#f97316]" />
+        <div className="h-1 w-24 mx-auto my-4 rounded-full bg-[#00BFFF]" />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
