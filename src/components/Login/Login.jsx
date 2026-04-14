@@ -77,20 +77,20 @@ const Login = () => {
                   2U
                 </span>
               </span>
-              <span className="text-[9px] text-gray-400 tracking-[0.3em] uppercase mt-0.5">
+              <span className="text-[9px] text-gray-500 tracking-[0.3em] uppercase mt-0.5">
                 Lost &amp; Found System
               </span>
             </div>
 
             {/* Vertical divider */}
-            <div className="h-10 w-px bg-white/10 mx-1 shrink-0" />
+            <div className="h-10 w-px bg-white/30 mx-1 shrink-0" />
 
             {/* Page label */}
             <div>
               <p className="text-white font-semibold text-sm leading-tight">
                 Welcome Back
               </p>
-              <p className="text-gray-400 text-[11px] leading-tight mt-0.5">
+              <p className="text-gray-500 text-[11px] leading-tight mt-0.5">
                 Sign in to continue your search
               </p>
             </div>
