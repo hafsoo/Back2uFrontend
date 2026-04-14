@@ -66,7 +66,7 @@ const MyClaims = () => {
 
         <div>
           <button
-            className="hidden lg:inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500
+            className="hidden lg:inline-flex items-center gap-2 bg-cyan-500
        font-semibold
       shadow-lg
       hover:scale-105
