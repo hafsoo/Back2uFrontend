@@ -416,46 +416,46 @@ const AdminDashboardMain = () => {
           sx={{
             border: "none",
 
-            // ✅ MAIN HEADER CONTAINER
+            //  MAIN HEADER CONTAINER
             "& .MuiDataGrid-columnHeaders": {
               backgroundColor: isDark ? "#334155" : "#f9fafb",
               color: isDark ? "#fff" : "#000",
             },
 
-            // ✅ INNER HEADER FIX (IMPORTANT 🔥)
+            // INNER HEADER FIX (IMPORTANT )
             "& .MuiDataGrid-columnHeadersInner": {
               backgroundColor: isDark ? "#334155" : "#f9fafb",
             },
 
-            // ✅ EACH HEADER CELL (IMPORTANT 🔥🔥)
+            // EACH HEADER CELL (IMPORTANT)
             "& .MuiDataGrid-columnHeader": {
               backgroundColor: isDark ? "#334155" : "#f9fafb",
               color: isDark ? "#fff" : "#000",
             },
 
-            // ✅ HEADER TEXT
+            // HEADER TEXT
             "& .MuiDataGrid-columnHeaderTitle": {
               color: isDark ? "#fff" : "#000",
               fontWeight: "600",
             },
 
-            // ✅ ROWS
+            // ROWS
             "& .MuiDataGrid-row": {
               backgroundColor: isDark ? "#1e293b" : "#fff",
               color: isDark ? "#e2e8f0" : "#111827",
             },
 
-            // ✅ CELL BORDER
+            //  CELL BORDER
             "& .MuiDataGrid-cell": {
               borderBottom: isDark ? "1px solid #334155" : "1px solid #e5e7eb",
             },
 
-            // ✅ HOVER
+            //  HOVER
             "& .MuiDataGrid-row:hover": {
               backgroundColor: isDark ? "#334155" : "#f3f4f6",
             },
 
-            // ✅ FOOTER
+            // FOOTER
             "& .MuiDataGrid-footerContainer": {
               backgroundColor: isDark ? "#1e293b" : "#fff",
               color: isDark ? "#fff" : "#000",
