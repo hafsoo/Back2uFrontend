@@ -97,7 +97,7 @@ const Signup = () => {
                   2U
                 </span>
               </span>
-              <span className="text-[9px] text-cyan-500 tracking-[0.3em] uppercase mt-0.5">
+              <span className="text-[9px] text-white tracking-[0.3em] uppercase mt-0.5">
                 Lost &amp; Found System
               </span>
             </div>
@@ -108,7 +108,7 @@ const Signup = () => {
             {/* Page label */}
             <div>
               <p className="text-white font-semibold text-sm leading-tight">Create Account</p>
-              <p className="text-cyan-500 text-[11px] leading-tight mt-0.5">Help reunite lost items</p>
+              <p className="text-gray-700 text-[11px] leading-tight mt-0.5">Help reunite lost items</p>
             </div>
           </div>
 
