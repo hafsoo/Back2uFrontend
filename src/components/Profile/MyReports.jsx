@@ -57,7 +57,7 @@ const MyReports = () => {
             <th className="py-3 px-2 sm:px-4 border hidden sm:table-cell">Category</th>
             <th className="py-3 px-2 sm:px-4 border">Location</th>
             <th className="py-3 px-2 sm:px-4 border hidden sm:table-cell">Date</th>
-            <th className="py-3 px-2 sm:px-4 border text-center">Action</th>
+            <th className="py-3 px-2 sm:px-4 border text-center w-[50px] sm:w-auto">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -72,24 +72,27 @@ const MyReports = () => {
               <td className="py-2 px-2 sm:px-4 border">{item.location}</td>
               <td className="py-2 px-2 sm:px-4 border hidden sm:table-cell">{item.dateLost || item.dateFound}</td>
               <td className="py-2 px-2 sm:px-4 border">
-                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                <div className="flex flex-col sm:flex-row justify-center items-center gap-2">
                   <Link
                     to={`/lost-found/${item._id}`}
-                    className="bg-green-500 text-white p-2 rounded hover:bg-green-600 transition w-10 h-10 flex items-center justify-center"
+                    //className="bg-green-500 text-white p-2 rounded hover:bg-green-600 transition w-10 h-10 flex items-center justify-center"
+                    className="bg-green-500 text-white p-2 rounded hover:bg-green-600 transition w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center"
                     title="View"
                   >
                     <FaEye />
                   </Link>
                   <Link
                     to={type === "lost" ? `/lost-report/edit/${item._id}` : `/found-report/edit/${item._id}`}
-                    className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition w-10 h-10 flex items-center justify-center"
+                    className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center"
+                    //className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition w-10 h-10 flex items-center justify-center"
                     title="Edit"
                   >
                     <FaEdit />
                   </Link>
                   <button
                     onClick={() => handleDelete(item._id, type)}
-                    className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition w-10 h-10 flex items-center justify-center"
+                    className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center"
+                    //className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition w-10 h-10 flex items-center justify-center"
                     title="Delete"
                   >
                     <FaTrash />
