@@ -2,7 +2,7 @@ import React from "react";
 import { AiOutlineLogin, AiOutlineMessage } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { MdOutlineAdminPanelSettings, MdOutlineAssignment, MdOutlineInbox  } from "react-icons/md";
 import { TbAddressBook } from "react-icons/tb";
 import { RxPerson } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
@@ -124,7 +124,7 @@ const ProfileSidebar = ({ setActive, active }) => {
         className="flex items-center cursor-pointer w-full mb-8"
         onClick={() => setActive(9)}
       >
-        <AiOutlineMessage size={20} color={active === 9 ? "cyan" : ""} />
+        <MdOutlineAssignment size={20} color={active === 9 ? "cyan" : ""} />
         <span
           className={`pl-3 ${active === 9 ? "text-cyan-500" : ""} md:block hidden`}
         >
@@ -137,7 +137,7 @@ const ProfileSidebar = ({ setActive, active }) => {
         className="flex items-center cursor-pointer w-full mb-8"
         onClick={() => setActive(10)}
       >
-        <AiOutlineMessage size={20} color={active === 10 ? "cyan" : ""} />
+        <MdOutlineInbox size={20} color={active === 10 ? "cyan" : ""} />
         <span
           className={`pl-3 ${
             active === 10 ? "text-cyan-500" : ""
