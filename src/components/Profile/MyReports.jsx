@@ -49,7 +49,7 @@ const MyReports = () => {
     <div className="overflow-x-auto rounded-lg border border-gray-300 shadow-sm">
       <table className="min-w-full text-sm text-left">
         <thead 
-        className="bg-[#6a5fdf] text-[#d0d2d6] uppercase text-xs sm:text-sm"
+        className="bg-cyan-500 text-white uppercase text-xs sm:text-sm"
         >
           <tr>
             <th className="py-3 px-2 sm:px-4 border ">No</th>
@@ -108,10 +108,10 @@ const MyReports = () => {
 
   return (
     <div className="p-4 sm:p-6">
-      <h2 className="text-xl sm:text-2xl font-bold mb-4 text-[#3a24db]">My Lost Reports</h2>
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 text-cyan-500">My Lost Reports</h2>
       {lostReports.length === 0 ? <p className="text-gray-600">You have no lost reports yet.</p> : renderTable(lostReports, "lost")}
 
-      <h2 className="text-xl sm:text-2xl font-bold mt-8 mb-4 text-[#3a24db]">My Found Reports</h2>
+      <h2 className="text-xl sm:text-2xl font-bold mt-8 mb-4 text-cyan-500">My Found Reports</h2>
       {foundReports.length === 0 ? <p className="text-gray-600">You have no found reports yet.</p> : renderTable(foundReports, "found")}
     </div>
   );
