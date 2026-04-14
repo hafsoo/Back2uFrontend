@@ -151,7 +151,8 @@ const ProfileContent = ({ active }) => {
                 </div>
               </div>
               <input
-                className={`w-[250px] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
+              className="w-[200px] h-[40px]  rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg hover:scale-105 transition duration-300"
+                //className={`w-[250px] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
                 required
                 value="Update"
                 type="submit"
@@ -252,7 +253,8 @@ const ChangePassword = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <input
-              className={`w-[95%] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
+                          className="w-[95%] h-[40px]  rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg hover:scale-105 transition duration-300"
+              //className={`w-[95%] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
               required
               value="Update"
               type="submit"
@@ -469,13 +471,23 @@ const Address = () => {
         </h1>
 
         <div
-          className={`${styles.button} !rounded-md px-2 py-2 sm:px-4 sm:py-3 w-full sm:w-auto text-center`}
-          // className={`${styles.button} !rounded-md`}
+          //className={`${styles.button} !rounded-md px-2 py-2 sm:px-4 sm:py-3 w-full sm:w-auto text-center`}
+         className= "w-full sm:w-auto flex justify-center sm:justify-start"
           onClick={() => setOpen(true)}
         >
           <span
-            className="text-white block sm:inline"
-            //className="text-[#fff]"
+           // className="text-white block sm:inline"
+          className="
+      w-full sm:w-[200px]
+      h-[40px]
+      flex items-center justify-center
+      rounded-xl
+      bg-gradient-to-r from-cyan-500 to-blue-500
+      text-white font-semibold
+      shadow-lg
+      hover:scale-105
+      transition duration-300
+    "
           >
             Add New
           </span>
