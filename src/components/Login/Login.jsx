@@ -55,7 +55,7 @@ const Login = () => {
         {/* Logo / Brand */}
 
         {/* Card */}
-        <div className="relative bg-white/[0.01] backdrop-blur-[3px] border-[1.5px] border-white/20 rounded-[40px] p-8 shadow-2xl">
+        <div className="relative bg-white/[0.01] backdrop-blur-[5px] border-[1.5px] border-white/20 rounded-[40px] p-8 shadow-2xl">
           {/* Inner glow top border */}
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent rounded-t-3xl" />
           {/* ── HEADER: logo | brand text | divider | page label ── */}

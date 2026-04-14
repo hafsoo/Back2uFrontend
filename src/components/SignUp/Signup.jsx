@@ -74,7 +74,7 @@ const Signup = () => {
 
         {/* Card */}
         {/* bg-white/[0.01] aur backdrop-blur-sm se bilkul pehli image jaisa transparency aayega */}
-        <div className="relative bg-white/[0.01] backdrop-blur-[3px] border-[1.5px] border-white/20 rounded-[40px] p-8 shadow-2xl">
+        <div className="relative bg-white/[0.01] backdrop-blur-[5px] border-[1.5px] border-white/20 rounded-[40px] p-8 shadow-2xl">
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent rounded-t-3xl" />
 
            {/* ── HEADER: logo | brand text | divider | page label ── */}
