@@ -87,7 +87,7 @@ const DemoSection = () => {
 
             {/* Full Video */}
             <video
-              src="/images/demo.mp4"
+              src="/images/video.mp4"
               controls
               autoPlay
               playsInline
