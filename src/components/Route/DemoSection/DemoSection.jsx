@@ -48,7 +48,7 @@ const DemoSection = () => {
           {/* Video Preview */}
           <video
             ref={previewRef}
-            src="/images/demo.mp4"
+            src="/images/DemoVideo.mp4"
             muted
             loop
             playsInline
