@@ -56,6 +56,12 @@ const FoundForm = () => {
     dispatch(clearMessage()); // optional: clear matches from Redux
     navigate("/");
   };
+    const handleRemoveImage = (indexToRemove) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, idx) => idx !== indexToRemove),
+    }));
+  };
 
   // Toast notifications
   useEffect(() => {
@@ -100,6 +106,7 @@ const FoundForm = () => {
           }
         };
         reader.readAsDataURL(file);
+        e.target.value = "";
       });
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -379,13 +386,29 @@ const FoundForm = () => {
               />
             </label>
             {formData.images.map((img, idx) => (
+  <div key={idx} className="relative m-2">
+    <img
+      src={img}
+      alt={`lost-item-${idx}`}
+      className="h-[120px] w-[120px] object-cover border rounded"
+    />
+    <button
+      type="button"
+      onClick={() => handleRemoveImage(idx)}
+      className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600"
+    >
+      ✕
+    </button>
+  </div>
+))}
+            {/*formData.images.map((img, idx) => (
               <img
                 src={img}
                 key={idx}
                 alt={`found-item-${idx}`}
                 className="h-[120px] w-[120px] object-cover m-2 border rounded"
               />
-            ))}
+            ))*/}
           </div>
         </div>
         <div className="hidden md:block">
