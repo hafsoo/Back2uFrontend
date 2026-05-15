@@ -107,7 +107,7 @@ const Signup = () => {
 
             {/* Page label */}
             <div>
-              <p className="text-white font-semibold text-sm leading-tight">Create new Account</p>
+              <p className="text-white font-semibold text-sm leading-tight">Create Account</p>
               <p className="text-gray-700 text-[11px] leading-tight mt-0.5">Help reunite lost items</p>
             </div>
           </div>
