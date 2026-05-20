@@ -128,7 +128,7 @@ const Hero = () => {
           </p>
 
           {/* Buttons */}
-          <div className="hero-btns flex flex-col sm:flex-row gap-4 mt-10 justify-center md:justify-end">
+          <div className="hero-btns flex flex-col sm:flex-row gap-4 mt-10 justify-center md:justify-start">
             <Link to="/report-lost">
               <button
                 className="btn-primary px-8 py-3.5 rounded-xl font-semibold text-white"
